@@ -1,41 +1,115 @@
-# DBI Intelligence 2021–2025
+# DBI Intelligence: Chấm điểm & xếp hạng chuyển đổi số ngân hàng Việt Nam
 
-Dự án dựng lại theo ảnh phương pháp do người dùng cung cấp: 140 tiêu chí, 6 trụ cột bằng trọng số, mức 0/1/2/3/4/5 → 0/0/25/50/75/100. **Không dùng DBI 80% + DTI 20%.**
+Dự án đánh giá mức độ chuyển đổi số của ngân hàng Việt Nam theo bộ chỉ số **DBI (Digital Banking Index)** gồm 6 trụ cột. Dữ liệu được trích từ báo cáo thường niên, chấm điểm bằng từ khóa và AI (Gemini), sau đó đối chiếu thủ công trước khi hiển thị trên dashboard.
 
-## Cài đặt Windows PowerShell
+## Phạm vi
 
-```powershell
-cd C:\Users\binh1\bank_dx_rebuild
-.\venv\Scripts\Activate.ps1
+- **Ngân hàng khảo sát:** Techcombank (TCB), BIDV (BID), HDBank (HDB), VPBank (VPB), TPBank (TPB)
+- **Giai đoạn:** 2021–2025
+- **Nguồn dữ liệu:** báo cáo thường niên (PDF) của từng ngân hàng
+- **Bộ tiêu chí:** 6 trụ cột, 140 tiêu chí, thang Mức 1–5 (`criteria.csv`)
+
+## 6 trụ cột DBI
+
+| # | Trụ cột | Tỷ trọng |
+|---|---------|----------|
+| 1 | Chiến lược số | 20% |
+| 2 | Trải nghiệm khách hàng | 20% |
+| 3 | Công nghệ & Dữ liệu | 20% |
+| 4 | Vận hành & Quy trình | 15% |
+| 5 | Văn hóa & Nhân sự số | 15% |
+| 6 | Rủi ro & An toàn | 10% |
+
+> Tên trụ cột và tỷ trọng trên là bản đang dùng trong dashboard; cập nhật lại nếu bộ DBI chính thức khác.
+
+## Quy trình
+
+1. **Thu thập:** tải báo cáo thường niên (PDF) vào thư mục `data/`.
+2. **Quét từ khóa:** `score_banks.py` đọc PDF, đếm mật độ từ khóa theo từng trụ cột.
+   Kết quả xuất ra `bank_scores.csv` và `bank_keyword_hits.csv`.
+3. **Chấm bằng Gemini:** trích đoạn bằng chứng từ báo cáo và đề xuất mức điểm cho từng tiêu chí.
+4. **Thẩm định thủ công:** đối chiếu `review_template.csv` với `criteria.csv`, mỗi tiêu chí có 3 đoạn trích. Điểm đề xuất của AI lưu ở `review_filled_claude.csv` (trạng thái `AI_SUGGESTED`).
+5. **Tổng hợp & hiển thị:** điểm cuối cùng đưa vào dashboard.
+
+## Cấu trúc thư mục
+
+```
+.
+├── data/                    # Báo cáo thường niên (PDF) và dữ liệu đầu vào
+├── score_banks.py           # Chấm điểm theo mật độ từ khóa
+├── dashboard.py             # Ứng dụng Streamlit "DBI Bank Rank"
+├── index.html               # Dashboard web DBI Intelligence (giao diện tối)
+├── bank_scores.csv          # Điểm tổng hợp theo ngân hàng, năm, trụ cột
+├── bank_keyword_hits.csv    # Chi tiết từ khóa tìm thấy
+├── criteria.csv             # Bộ tiêu chí, Mức 1–5
+├── review_template.csv      # Bảng thẩm định thủ công
+├── review_filled_claude.csv # Điểm đề xuất của AI
+├── cham_tay.csv             # Điểm chấm tay
+└── dbi_dnl.csv              # Bộ chỉ số DBI
+```
+
+## Cài đặt & chạy
+
+Yêu cầu: Python 3.10+.
+
+```bash
+python -m venv .venv
+.venv\Scripts\activate          # Windows (PowerShell)
+# source .venv/bin/activate     # macOS / Linux
 pip install -r requirements.txt
-python compute_scores.py
-streamlit run app.py
 ```
 
-Copy các file dự án mới vào thư mục hiện tại nhưng **KHÔNG XÓA data/reports/** và **KHÔNG ghi đè data/input/dbi_scores.csv nếu bạn đã chấm điểm**. Trước khi thay app.py, sao lưu `app.py` cũ.
+**Chấm điểm từ khóa:**
 
-## Nhập điểm
-Trong tab **Nhập điểm**, chọn ngân hàng, năm, trụ cột; nhập `score_level` (0,1,2,3,4,5,NA hoặc để trống), trích dẫn, tên PDF hoặc URL, trang; nhấn Lưu. `NA` bắt buộc có `na_reason`. Mức 0 phải có nguồn và ghi chú hoặc trích dẫn. Mức 1–5 bắt buộc có nguồn và trích dẫn. Tự sửa trực tiếp `data/input/dbi_scores.csv` cũng được.
-
-## PDF & Ảnh
-`data/reports/BID` và tương tự TCB/HDB/TPB/VPB chứa file PDF nguyên tên. `assets/banks/<BANK>/logo.png`, `background.jpg`, `app.jpg` là ảnh tuỳ chọn.
-
-## Dữ liệu đầu ra
-`python compute_scores.py` tạo `data/output/criterion_audit.csv`, `pillar_scores.csv`, `digital_scores.csv`.
-
-Không tự gán điểm; năm chỉ được xếp hạng khi tất cả tiêu chí áp dụng đều có mức hợp lệ và nguồn bằng chứng. Điểm 0 và 1 cùng quy đổi thành 0 nhưng có ý nghĩa khác nhau. Đây là phương pháp được mô tả trong ảnh, không phải khẳng định đã sao chép mã nguồn website.
-
-## Tìm bằng chứng tự động từ PDF (offline, không dùng AI)
-
-Thêm file `auto_propose.py` và `proposal_ui.py`. Đặt PDF dưới `data/reports/<BANK>/`.
-Cài `pip install -r requirements.txt` rồi chạy:
-
-```
-python auto_propose.py --bank TPB --year 2022
-python auto_propose.py --all
-streamlit run app.py
+```bash
+python score_banks.py
 ```
 
-Kết quả chấm đề xuất lưu tại `data/output/auto_proposals.csv`; tab **Chấm nhanh từ PDF** hiển thị các ứng viên. Chỉ các hàng được nhà nghiên cứu thực sự đối chiếu và duyệt mới được chuyển vào `data/input/dbi_scores.csv`. Không ghi đè ô đã có điểm. Bộ so khớp tiếng Anh được xây dựng theo từ điển hạn chế, không bảo đảm bao phủ toàn bộ 140 tiêu chí. Mức 2 là giả thuyết chấm sơ bộ cho đoạn có dấu hiệu triển khai, **không phải mức được chứng minh** nếu thiếu điều kiện rubric. Mức 3–5 không tự động suy diễn; những PDF dạng ảnh cần được OCR riêng.
+**Chạy ứng dụng Streamlit:**
 
-Lưu ý: Tính điểm tổng hợp theo năm chỉ khi tất cả tiêu chí áp dụng đủ điểm kèm bằng chứng; bản đề xuất không tự tạo xếp hạng chính thức.
+```bash
+streamlit run dashboard.py
+```
+
+**Chạy dashboard web:** mở `index.html` bằng trình duyệt, hoặc dùng server cục bộ để đọc dữ liệu từ `data.json`:
+
+```bash
+python -m http.server 8000
+# truy cập http://localhost:8000
+```
+
+## Cấu hình API Gemini
+
+Tạo file `.env` ở thư mục gốc (file này đã được `.gitignore`, **không đẩy lên GitHub**):
+
+```
+GEMINI_API_KEY=<khóa của bạn>
+```
+
+## Định dạng dữ liệu cho dashboard web
+
+```json
+{
+  "banks": [
+    { "id": "tcb", "name": "Techcombank", "code": "TCB", "color": "#ff7b2b",
+      "s": { "2021": [62, 66, 68, 60, 60, 62], "2025": [85, 89, 84, 78, 83, 80] } }
+  ],
+  "evidence": [
+    { "b": "TCB", "p": 2, "t": "Nền tảng dữ liệu tập trung", "s": "ok", "src": "BCTN 2024, tr.52" }
+  ]
+}
+```
+
+- `s`: điểm 6 trụ cột theo từng năm, đúng thứ tự bảng trên.
+- `evidence.s`: `ok` (đã xác thực), `wait` (chờ thẩm định), `flag` (cần rà soát).
+
+## Hạn chế hiện tại
+
+- Điểm theo từ khóa chỉ phản ánh mức độ nhắc đến, chưa phản ánh chất lượng triển khai.
+- Một số báo cáo là PDF scan nên cần OCR trước khi chấm.
+- Điểm AI chỉ là đề xuất, cần thẩm định thủ công trước khi công bố.
+- Báo cáo PDF không được đẩy lên repo (`.gitignore`); tải riêng từ website của từng ngân hàng.
+
+## Nhóm thực hiện
+
+<Tên nhóm / thành viên>, <môn học / đơn vị>
