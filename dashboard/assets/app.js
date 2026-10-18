@@ -8,16 +8,7 @@ const drawer = document.getElementById('drawer');
 const dbg = document.getElementById('dbg');
 const REDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 const D = window.DBI;
-const THEMES = {
-  light: { label: 'Sáng', icon: 'sun' },
-  noon:  { label: 'Trưa', icon: 'clock' },
-  dark:  { label: 'Tối',  icon: 'moon' }
-};
 
-function normalizeTheme(v) {
-  if (v === 'light' || v === 'noon' || v === 'dark') return v;
-  return 'dark';
-}
 /* ---------- icons (inline SVG, khong can font ngoai) ---------- */
 const ICON = {
   dash:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
@@ -69,7 +60,7 @@ function noDataPage() {
   app.innerHTML = `<main class="main" style="margin:0 auto;max-width:720px;padding-top:12vh">
     <div class="card hero"><div class="kicker">DBI Intelligence</div><h2 style="font-size:24px;margin:8px 0">Chưa có dữ liệu để hiển thị</h2>
     <p class="mut">Chạy lần lượt tại thư mục gốc dự án:</p>
-    <div class="formula">python build_dashboard_data.py</div>
+    <div class="formula">python 09_ai_judge_score.py --year 2025<br>python build_dashboard_data.py</div>
     <p class="sub" style="margin-top:12px">Sau đó tải lại trang này. Dashboard chỉ hiển thị điểm có thật, không có số mẫu.</p></div></main>`;
 }
 if (!D || !D.rows || !D.rows.length) { noDataPage(); return; }
@@ -91,7 +82,7 @@ const LV = ['Khởi đầu', 'Hình thành', 'Tăng tốc', 'Dẫn đầu', 'Ti�
 const LV_TAG = ['', 'in', 'cy', 'em', 'am'];
 const levelOf = p => clamp(Math.round(1 + p / 25), 1, 5);
 const ST = {
-  AI_PROPOSED: ['AI đề xuất', 'em'], AI_NEEDS_REVIEW: ['AI cần rà soát', 'wn'], NO_RETRIEVED_EVIDENCE: ['Chưa tìm thấy chứng cứ', 'wn'], INSUFFICIENT_EVIDENCE: ['Thiếu bằng chứng', 'wn'],
+  AI_PROPOSED: ['AI đề xuất', 'em'], AI_NEEDS_REVIEW: ['AI cần rà soát', 'cy'], NO_RETRIEVED_EVIDENCE: ['Chưa tìm thấy chứng cứ', 'wn'], INSUFFICIENT_EVIDENCE: ['Thiếu bằng chứng', 'wn'],
   MODEL_INVALID: ['Phản hồi lỗi', 'pk'], ERROR: ['Lỗi xử lý', 'bd'], OTHER: ['Khác', ''], NOT_SCORED: ['Chưa chấm', '']
 };
 const IDX = {};
@@ -106,8 +97,10 @@ const state = {
   year: YEARS_DATA.length > 1 ? 'all' : String(YEARS_DATA[YEARS_DATA.length - 1]),
   pillars: new Set(PILLARS.map(p => p.id)), compare: true, rk: 'val', gq: '',
   ev: { q: '', pillar: 'all', status: 'all', page: 1 }, pf: { q: '', pillar: 'all', page: 1 },
-theme: normalizeTheme(safe(() => localStorage.getItem('dbi-theme')) || 'dark'),};
-document.documentElement.setAttribute('data-theme', normalizeTheme(state.theme));
+  theme: safe(() => localStorage.getItem('dbi-theme')) || 'navy', faq: 0, show: 0
+};
+if (!['navy','slate','light'].includes(state.theme)) state.theme = 'navy';
+document.documentElement.setAttribute('data-theme', state.theme);
 
 /* ---------- tinh diem ---------- */
 const cache = new Map();
@@ -126,7 +119,7 @@ function calcYear(y) {
   let common = null;
   wd.forEach(b => { const s = new Set(per[b.code].ids); common = common ? new Set([...common].filter(x => s.has(x))) : s; });
   common = common || new Set();
-  const out = { year: y, total, nCommon: common.size, banks: {}, useCommon: common.size > 0, reliable: common.size >= MINC };
+  const out = { year: y, total, nCommon: common.size, banks: {}, useCommon: common.size > 0, reliable: false };
   BANKS.forEach(b => {
     const p = per[b.code], m = (IDX[b.code] || {})[y] || {};
     const pct = c => (m[c].l - 1) / 4 * 100;
@@ -136,10 +129,12 @@ function calcYear(y) {
     const common_ = [...common];
     out.banks[b.code] = { code: b.code, y, n: p.n, total, file: p.file, has: p.n > 0, coverage: total ? p.n / total * 100 : 0,
       all: mn(p.ids), common: (p.n && common.size) ? mn(common_) : null, pil };
-    const bb = out.banks[b.code]; bb.val = PILLARS.every(pl => num(bb.pil[pl.id].score)) ? mean(PILLARS.map(pl => bb.pil[pl.id].score)) : null;
+    const bb = out.banks[b.code], act = PILLARS.filter(pl => state.pillars.has(pl.id));
+    bb.val = act.length && act.every(pl => num(bb.pil[pl.id].score)) ? mean(act.map(pl => bb.pil[pl.id].score)) : null; bb.n_all = bb.has; bb.has = num(bb.val);
   });
   out.ranked = Object.values(out.banks).filter(b => num(b.val)).sort((a, b) => b.val - a.val);
   out.ranked.forEach((b, i) => { b.rank = i + 1; });
+  out.reliable = out.ranked.length === BANKS.length && out.ranked.every(b => b.coverage >= 50);
   cache.set(k, out);
   return out;
 }
@@ -162,9 +157,9 @@ function view() {
     const pil = {};
     PILLARS.forEach(pl => {
       const v = rows.map(r => r.banks[b.code].pil[pl.id].score).filter(num);
-      pil[pl.id] = { score: mean(v), n: rows.reduce((s, r) => s + r.banks[b.code].pil[pl.id].n, 0) };
+      pil[pl.id] = { score: mean(v), n: Math.round(mean(rows.map(r => r.banks[b.code].pil[pl.id].n)) || 0) };
     });
-    banks[b.code] = { code: b.code, has: vals.length > 0, val: mean(vals), n: rows.reduce((s, r) => s + r.banks[b.code].n, 0),
+    banks[b.code] = { code: b.code, has: vals.length > 0, val: mean(vals), n: Math.round(mean(rows.map(r => r.banks[b.code].n)) || 0),
       coverage: mean(rows.map(r => r.banks[b.code].coverage)) || 0, total: per.length ? per[0].total : 0, pil, yearsN: rows.length,
       delta: rows.length > 1 ? vals[vals.length - 1] - vals[0] : null, file: rows.length > 0 };
   });
@@ -177,7 +172,7 @@ function view() {
 function selYears() { return state.year === 'all' ? YEARS_DATA : [+state.year]; }
 function cellStats() {
   const crit = CIDS.filter(c => state.pillars.has(CRIT[c].p));
-  const st = { AI_PROPOSED: 0, INSUFFICIENT_EVIDENCE: 0, MODEL_INVALID: 0, ERROR: 0, OTHER: 0, NOT_SCORED: 0, total: 0, hv: 0, perBank: {} };
+  const st = { AI_PROPOSED: 0, INSUFFICIENT_EVIDENCE: 0, AI_NEEDS_REVIEW: 0, NO_RETRIEVED_EVIDENCE: 0, MODEL_INVALID: 0, ERROR: 0, OTHER: 0, NOT_SCORED: 0, total: 0, hv: 0, perBank: {} };
   BANKS.forEach(b => { st.perBank[b.code] = { total: 0, scored: 0 }; });
   selYears().forEach(y => BANKS.forEach(b => {
     const m = (IDX[b.code] || {})[y]; if (!m) return;
@@ -299,24 +294,11 @@ function heatStyle(v) {
 
 /* ---------- khoi HTML dung chung ---------- */
 const rv = i => `class="reveal" style="--i:${i}"`;
-// Anh ngan hang: uu tien thu muc assets/banks ben ngoai dashboard.
-// Ho tro .png/.jpg/.jpeg/.webp va thu muc ten TCB, HDB, TPB, VPB, BID.
-const IMG_BASES = ['../assets/banks/', 'assets/banks/'];
-const IMG_EXTS = ['png', 'jpg', 'jpeg', 'webp', 'svg'];
-function bankImage(code, filename, cls, alt) {
-  const folders = IMG_BASES.flatMap(base => [base + code + '/', base + code.toLowerCase() + '/']);
-  const stems = filename === 'background' ? ['background', 'banner', 'cover'] : filename === 'app' ? ['app', 'mobile', 'interface'] : ['logo'];
-  const paths = folders.flatMap(dir => stems.flatMap(stem => IMG_EXTS.map(ext => dir + stem + '.' + ext)));
-  // Danh sach duong dan la co dinh, khong lay tu CSV nguoi dung.
-  const encoded = JSON.stringify(paths).replace(/"/g, '&quot;');
-  return `<img class="${cls}" src="${paths[0]}" alt="${esc(alt)}" data-bank-images="${encoded}" onerror="window.dbiImageFallback(this)">`;
+const IMG = (D.meta && D.meta.images) || {};
+function bankImage(code, kind, cls, alt) {
+  const f = IMG[code] && IMG[code][kind]; if (!f) return '';
+  return `<img class="${cls}" src="${esc(f)}" alt="${esc(alt)}" loading="lazy" onerror="this.remove()">`;
 }
-window.dbiImageFallback = function(img) {
-  let paths; try { paths = JSON.parse(img.getAttribute('data-bank-images') || '[]'); } catch(e) { paths = []; }
-  const n = Number(img.dataset.imgTry || '0') + 1;
-  if (n < paths.length) { img.dataset.imgTry = n; img.src = paths[n]; }
-  else { img.style.display = 'none'; img.onerror = null; }
-};
 const av = c => `<div class="av bank-avatar" style="color:${bcol(c)};border-color:${bcol(c)}55">${bankImage(c, 'logo', 'bank-avatar-img', c + ' logo')}<span>${esc(c)}</span></div>`;
 const tag = (t, c) => `<span class="tag ${c || ''}">${t}</span>`;
 const bar = (v, cls) => `<div class="bar ${cls || ''}"><i data-w="${clamp(v || 0, 0, 100).toFixed(1)}"></i></div>`;
@@ -329,10 +311,10 @@ function noData(msg) {
   return `<div class="card"><div class="empty"><b>Chưa có điểm cho bộ lọc này</b>${msg || 'Hãy chọn năm đã chấm hoặc bật lại các trụ cột ở thanh bên.'}</div></div>`;
 }
 function reliabilityNote(v) {
-  const small = !v.reliable;
-  return `<div class="note ${small ? '' : 'in'}">${ic(small ? 'alert' : 'info')}<div><b style="color:var(--tx)">Xếp hạng trên ${v.mode === 'year' ? v.nCommon : 'tập tiêu chí chung theo từng năm'} ${v.mode === 'year' ? 'tiêu chí chung' : ''}${v.mode === 'period' ? ` (${esc(v.nTxt)})` : ''}.</b>
-    ${small ? `Mẫu còn nhỏ (dưới ${MINC} tiêu chí chung) nên chênh lệch giữa các ngân hàng chỉ mang tính tham khảo.` : 'Mọi ngân hàng được so sánh trên cùng một tập tiêu chí.'}
-    ${v.useCommon ? '' : ' Chưa có tiêu chí chung nên đang xếp theo điểm trung bình trên các tiêu chí đã chấm của từng ngân hàng (không cùng tập).'}</div></div>`;
+  const small = !v.reliable, miss = BANKS.filter(b => !(v.banks[b.code] && v.banks[b.code].has)).map(b => b.code);
+  return `<div class="note ${small ? '' : 'in'}">${ic(small ? 'alert' : 'info')}<div><b style="color:var(--tx)">Điểm sơ bộ: trung bình ${PILLARS.filter(p => state.pillars.has(p.id)).length} trụ cột, trọng số bằng nhau.</b>
+    ${small ? ' Độ phủ tiêu chí giữa các ngân hàng chưa đồng đều (hoặc còn ngân hàng thiếu điểm) nên thứ hạng chỉ mang tính thăm dò, chưa phải DBI chính thức.' : ' Mọi ngân hàng đều có độ phủ từ 50% trở lên.'}
+    ${miss.length ? ` Chưa xếp hạng được: <b style="color:var(--tx)">${miss.join(', ')}</b> (có trụ cột chưa có tiêu chí nào được AI chấm).` : ''} Ô "AI cần rà soát" không tính vào điểm.</div></div>`;
 }
 
 /* ---------- khung trang ---------- */
@@ -352,24 +334,7 @@ function sidebar() {
     ${PILLARS.map(p => `<label class="pl" data-act="pillar" data-v="${esc(p.id)}"><span><i class="dot" style="background:${pcol(p.id)}"></i>${esc(short(p.name, 26))}</span><i class="ck ${state.pillars.has(p.id) ? 'on' : ''}"></i></label>`).join('')}</div>
   <button class="btn" data-act="reset">${ic('reset')}Đặt lại bộ lọc</button>
   <div class="side-foot">
-    <div class="theme-box">
-  <div class="lab">Giao diện màu</div>
-  <div class="theme-switch3">
-    ${Object.entries(THEMES).map(([key, meta]) => `
-      <button
-        class="theme-pill ${state.theme === key ? 'on' : ''}"
-        data-act="theme-set"
-        data-v="${key}"
-        aria-label="${meta.label}"
-        title="${meta.label}"
-      >
-        ${ic(meta.icon)}
-        <span>${meta.label}</span>
-      </button>
-    `).join('')}
-  </div>
-  <div class="theme-note">3 chế độ màu theo mẫu: Sáng • Trưa • Tối</div>
-</div>
+    <div class="fl"><div class="lab">Giao diện nền</div><div class="themes">${[['navy','Tối','#071a30'],['slate','Trưa','#cbd8eb'],['light','Sáng','#eff6fb']].map(t => `<button class="${state.theme === t[0] ? 'on' : ''}" data-act="theme" data-v="${t[0]}" aria-pressed="${state.theme === t[0]}"><i style="background:${t[2]}"></i>${t[1]}</button>`).join('')}</div></div>
     <div class="status-card"><b><i class="ping"></i>Dữ liệu dự án</b>${f0(SCORED_N)} ô đã có điểm • ${D.files.length} bank-năm<br>Cập nhật ${esc(D.meta.generated_at)}</div>
   </div></aside>`;
 }
@@ -412,7 +377,7 @@ function pOverview() {
   return `<div class="stack">
   <div class="card hero reveal" style="--i:0"><div style="display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:center;position:relative">
     <div style="max-width:760px"><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">${tag('NIÊN GIÁM ' + esc(v.label), 'am')}${tag(ic('ok') + ' Bằng chứng truy xuất từ báo cáo', 'em')}${tag('Điểm AI đề xuất', 'cy')}</div>
-      <p class="mut" style="margin:0">Điểm mỗi tiêu chí quy đổi từ mức 1–5 sang thang 0–100. Điểm DBI của một ngân hàng là trung bình trên các tiêu chí <b style="color:var(--tx)">cả ${rk.length} ngân hàng đều đã được chấm</b>, nên so sánh được với nhau.</p></div>
+      <p class="mut" style="margin:0">Mức AI 1–5 quy đổi sang thang 0–100 (1→0, 2→25, 3→50, 4→75, 5→100). Điểm trụ cột là trung bình các tiêu chí đã chấm; <b style="color:var(--tx)">điểm DBI sơ bộ là trung bình các trụ cột</b>, chưa phải kết quả chính thức.</p></div>
     <div style="text-align:right"><div class="kicker">Kỳ đánh giá</div><div class="mid" style="font-size:20px">${esc(v.label)}</div></div></div></div>
   <div class="grid g4">
     <div class="card kpi hv reveal" style="--i:1"><div class="hd"><div><div class="kicker">Điểm DBI trung bình ngành</div><div class="big" style="margin-top:8px">${count(avg, 1)}<small>/100</small></div></div>${ring(avg)}</div>
@@ -422,8 +387,8 @@ function pOverview() {
       <div class="ft"><span>${S ? 'Hơn #2 ' + esc(bank(S.code).name) + ' <b>' + f1(L.val - S.val) + '</b> điểm' : 'Chưa có ngân hàng thứ hai'}</span></div></div>
     <div class="card kpi hv reveal" style="--i:3"><div class="hd"><div><div class="kicker">Độ phủ dữ liệu</div><div class="big" style="margin-top:8px;color:var(--cy)">${count(cov, 1)}%</div></div><div class="kpi-ic cy">${ic('db')}</div></div>
       <div class="ft"><span><b style="color:var(--tx)">${f0(cs.AI_PROPOSED)}</b>/${f0(cs.total)} ô đã có điểm</span></div></div>
-    <div class="card kpi hv reveal" style="--i:4"><div class="hd"><div><div class="kicker">Tiêu chí chung để xếp hạng</div><div class="big" style="margin-top:8px">${v.mode === 'year' ? count(v.nCommon) : count(v.nCommon)}<small>/ ${v.total}</small></div></div><div class="kpi-ic vi">${ic('check')}</div></div>
-      <div class="ft"><span>${v.reliable ? tag('Mẫu đủ lớn', 'em') : tag('Mẫu còn nhỏ', 'wn')}</span><span>${cs.hv ? f0(cs.hv) + ' ô đã kiểm tay' : 'Chưa kiểm tay'}</span></div></div>
+    <div class="card kpi hv reveal" style="--i:4"><div class="hd"><div><div class="kicker">Ngân hàng đã xếp hạng</div><div class="big" style="margin-top:8px">${count(rk.length)}<small>/ ${BANKS.length}</small></div></div><div class="kpi-ic vi">${ic('check')}</div></div>
+      <div class="ft"><span>${v.reliable ? tag('Độ phủ ổn', 'em') : tag('Độ phủ chưa đều', 'wn')}</span><span>${cs.hv ? f0(cs.hv) + ' ô đã kiểm tay' : 'Chưa kiểm tay'}</span></div></div>
   </div>
   <div class="reveal" style="--i:5">${reliabilityNote(v)}</div>
   <div class="card reveal" style="--i:6"><div class="chd"><div style="display:flex;align-items:center;gap:10px"><i class="ping am"></i><div><h2>Bảng xếp hạng DBI ${esc(v.label)}</h2><p class="sub">${BANKS.length} ngân hàng • điểm trên tập tiêu chí chung</p></div></div>
@@ -440,7 +405,7 @@ function pOverview() {
       <td class="r"><button class="btn sm sq" data-act="profile" data-v="${b.code}">Xem hồ sơ ${ic('right')}</button></td></tr>`; }).join('')}
     </tbody></table></div></div>
   <div class="grid g2">
-    <div class="card reveal" style="--i:7"><div class="chd"><div><h2>Xu hướng DBI theo năm</h2><p class="sub">Điểm trên tập tiêu chí chung của từng năm</p></div><div class="legend">${series.map(s => `<span><i style="background:${s.color}"></i>${esc(s.code)}</span>`).join('')}</div></div>
+    <div class="card reveal" style="--i:7"><div class="chd"><div><h2>Xu hướng DBI theo năm</h2><p class="sub">Điểm sơ bộ (trung bình các trụ cột) của từng năm</p></div><div class="legend">${series.map(s => `<span><i style="background:${s.color}"></i>${esc(s.code)}</span>`).join('')}</div></div>
       ${ys.length ? lineChart(ys.map(r => r.year), series) : ''}
       ${ys.length < 2 ? `<p class="sub" style="margin-top:8px">Mới có dữ liệu ${ys.length} năm nên chưa vẽ được xu hướng. Chấm thêm các năm khác để thấy đường tăng trưởng.</p>` : '<p class="sub" style="margin-top:8px">Tập tiêu chí chung có thể khác nhau giữa các năm, nên so sánh giữa năm chỉ mang tính tham khảo.</p>'}</div>
     <div class="card reveal" style="--i:8"><div class="chd"><div><h2>Ma trận trụ cột năng lực</h2><p class="sub">Điểm trung bình theo trụ cột (thang 100)</p></div></div>
@@ -458,7 +423,7 @@ function pOverview() {
   <div class="grid g3">
     <div class="card hv reveal" style="--i:12"><div class="kpi-ic" style="margin-bottom:12px">${ic('trophy')}</div><h3>Vị thế dẫn đầu</h3>
       <p class="mut" style="font-size:12.5px">${esc(bank(L.code).name)} dẫn đầu với <b style="color:var(--tx)">${f1(L.val)}</b> điểm${S ? `, hơn ${esc(bank(S.code).name)} <b style="color:var(--tx)">${f1(L.val - S.val)}</b> điểm` : ''}${rk.length > 2 ? `; khoảng cách từ hạng 1 đến hạng ${rk.length} là ${f1(L.val - rk[rk.length - 1].val)} điểm` : ''}.</p>
-      <div class="${v.reliable ? 'up' : 'mut'}" style="font-size:11.5px;font-weight:700;margin-top:10px">${v.reliable ? 'Mẫu đủ lớn để so sánh' : 'Mẫu còn nhỏ — đọc như xu hướng, chưa kết luận'}</div></div>
+      <div class="${v.reliable ? 'up' : 'mut'}" style="font-size:11.5px;font-weight:700;margin-top:10px">${v.reliable ? 'Độ phủ đủ để so sánh' : 'Độ phủ chưa đều — đọc như xu hướng, chưa kết luận'}</div></div>
     <div class="card hv reveal" style="--i:13"><div class="kpi-ic em" style="margin-bottom:12px">${ic('graph')}</div><h3>Trụ cột mạnh và yếu của ngành</h3>
       <p class="mut" style="font-size:12.5px">${strong.length ? `Mạnh nhất: <b style="color:${pcol(strong[0].p.id)}">${esc(strong[0].p.name)}</b> (${f1(strong[0].v)}). ` + (strong.length > 1 ? `Yếu nhất: <b style="color:${pcol(strong[strong.length - 1].p.id)}">${esc(strong[strong.length - 1].p.name)}</b> (${f1(strong[strong.length - 1].v)}).` : '') : 'Chưa đủ dữ liệu trụ cột.'}</p>
       <div style="font-size:11.5px;font-weight:700;margin-top:10px" class="mut">Theo điểm trung bình các ngân hàng đã chấm</div></div>
@@ -495,11 +460,8 @@ function pProfile() {
     <button class="btn sq" data-act="pnav" data-v="${next}">${esc(next)}${ic('cr')}</button>
     <div class="seg" style="margin-left:auto">${rk.map(r => `<button class="${r.code === code ? 'on' : ''}" data-act="pnav" data-v="${r.code}">${esc(r.code)}</button>`).join('')}</div></div>
   <div class="grid g21">
-    <div class="card hero profile-hero reveal" style="--i:1">
-      ${bankImage(code, 'background', 'bank-cover', bk.name + ' banner')}
-      <div class="profile-hero-shade"></div>
-      <div style="position:relative;z-index:1">
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">${tag(`Hạng #${b.rank} / ${rk.length}`, 'am')}${tag(ic('ok') + ' ' + (y ? 'Báo cáo năm ' + y : ''), 'em')}${v.reliable ? '' : tag('Mẫu còn nhỏ', 'wn')}</div>
+    <div class="card hero profile-hero reveal" style="--i:1">${bankImage(code, 'background', 'bank-cover', bk.name + ' banner')}<div class="profile-hero-shade"></div><div style="position:relative;z-index:1">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">${tag(`Hạng #${b.rank} / ${rk.length}`, 'am')}${tag(ic('ok') + ' ' + (y ? 'Báo cáo năm ' + y : ''), 'em')}${v.reliable ? '' : tag('Độ phủ chưa đều', 'wn')}</div>
       <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px"><div class="av profile-logo" style="color:${bcol(code)};border-color:${bcol(code)}66;background:${bcol(code)}18">${bankImage(code, 'logo', 'profile-logo-img', bk.name + ' logo')}<span>${esc(code)}</span></div>
         <div><h2 style="font-size:26px">${esc(bk.name)}</h2><p class="sub">${esc(bk.full)}</p></div></div>
       <div class="grid g3" style="gap:12px">
@@ -509,10 +471,7 @@ function pProfile() {
       <p class="mut" style="margin:16px 0 12px;font-size:13px">${ps.length ? `Mạnh nhất ở <b style="color:${pcol(ps[0].p.id)}">${esc(ps[0].p.name)}</b> (${f1(ps[0].s.score)} điểm)${ps.length > 1 ? `, yếu nhất ở <b style="color:${pcol(ps[ps.length - 1].p.id)}">${esc(ps[ps.length - 1].p.name)}</b> (${f1(ps[ps.length - 1].s.score)} điểm)` : ''}. ` : ''}Điểm tính từ ${b.n} tiêu chí đã chấm${y ? ` của báo cáo năm ${y}` : ''}.</p>
       <div style="display:flex;gap:8px;flex-wrap:wrap">${tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>
       <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap"><button class="btn pri" data-act="print">${ic('dl')}Xuất hồ sơ PDF</button><button class="btn" data-act="nav" data-v="evidence">${ic('check')}Xem bằng chứng</button></div></div></div>
-    <div class="player bank-app-panel reveal" style="--i:2">
-      ${bankImage(code, 'app', 'bank-app-background', bk.name + ' ứng dụng ngân hàng')}
-      <div class="bank-app-shade"></div>
-      <div style="display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1"><span class="tag am"><i class="ping am"></i>BẰNG CHỨNG NỔI BẬT</span><div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="player bank-app-panel reveal" style="--i:2">${bankImage(code, 'app', 'bank-app-background', bk.name + ' ứng dụng')}<div class="bank-app-shade"></div><div style="display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1"><span class="tag am"><i class="ping am"></i>BẰNG CHỨNG NỔI BẬT</span><div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
       <div id="typer-host" style="position:relative;z-index:1"><div class="quote caret" id="typer" style="color:#f8fafc"></div><div id="typer-meta" class="mut" style="font-size:11.5px;margin-top:10px;color:#94a3b8"></div></div>
       <div style="font-size:11px;color:#94a3b8;position:relative;z-index:1">Trích nguyên văn từ báo cáo • Điểm AI đề xuất</div></div>
   </div>
@@ -639,7 +598,7 @@ function evTable() {
 function pEvidence() {
   const cs = cellStats(), v = view(), ag = D.meta.agreement;
   if (!cs.total) return noData();
-  const segs = [{ v: cs.AI_PROPOSED, color: '#10b981', label: 'AI đề xuất' }, { v: cs.INSUFFICIENT_EVIDENCE, color: '#f59e0b', label: 'Thiếu bằng chứng' },
+  const segs = [{ v: cs.AI_PROPOSED, color: '#10b981', label: 'AI đề xuất' }, { v: cs.AI_NEEDS_REVIEW, color: '#38bdf8', label: 'AI cần rà soát' }, { v: cs.INSUFFICIENT_EVIDENCE + cs.NO_RETRIEVED_EVIDENCE, color: '#f59e0b', label: 'Thiếu bằng chứng' },
     { v: cs.MODEL_INVALID, color: '#f472b6', label: 'Phản hồi lỗi' }, { v: cs.ERROR, color: '#f87171', label: 'Lỗi xử lý' }, { v: cs.NOT_SCORED + cs.OTHER, color: '#64748b', label: 'Chưa chấm' }];
   const axes = PILLARS.filter(p => state.pillars.has(p.id));
   return `<div class="stack">
@@ -649,7 +608,7 @@ function pEvidence() {
   <div class="grid g5">
     <div class="card kpi hv reveal" style="--i:1"><div class="kicker">Tổng ô đã chạy</div><div class="mid">${count(cs.total)}</div><div class="ft"><span>${esc(String(selYears().join(', ')))}</span></div></div>
     <div class="card kpi hv reveal" style="--i:2"><div class="kicker">Có điểm AI</div><div class="mid" style="color:var(--em)">${count(cs.AI_PROPOSED)}</div><div class="ft"><span>${f1(cs.AI_PROPOSED / cs.total * 100)}% tổng ô</span></div></div>
-    <div class="card kpi hv reveal" style="--i:3"><div class="kicker">Thiếu bằng chứng</div><div class="mid" style="color:var(--wn)">${count(cs.INSUFFICIENT_EVIDENCE)}</div><div class="ft"><span>Không tìm thấy đoạn phù hợp</span></div></div>
+    <div class="card kpi hv reveal" style="--i:3"><div class="kicker">Thiếu bằng chứng</div><div class="mid" style="color:var(--wn)">${count(cs.INSUFFICIENT_EVIDENCE + cs.NO_RETRIEVED_EVIDENCE)}</div><div class="ft"><span>Không tìm thấy đoạn phù hợp</span></div></div>
     <div class="card kpi hv reveal" style="--i:4"><div class="kicker">Lỗi / phản hồi lỗi</div><div class="mid" style="color:var(--bad)">${count(cs.MODEL_INVALID + cs.ERROR)}</div><div class="ft"><span>Cần chạy lại</span></div></div>
     <div class="card kpi hv reveal" style="--i:5"><div class="kicker">Đã kiểm tay</div><div class="mid" style="color:var(--cy)">${ag ? count(ag.n) : '0'}</div><div class="ft"><span>${ag ? 'Khớp đúng ' + f1(ag.exact) + '%' : 'Chưa kiểm tay'}</span></div></div>
   </div>
@@ -667,7 +626,7 @@ function pEvidence() {
   <div class="card reveal" style="--i:9"><div class="chd"><div><h2>Tra cứu bằng chứng kiểm định</h2><p class="sub">Lọc theo ngân hàng, trụ cột, trạng thái; bấm "Xem" để đọc trích dẫn gốc</p></div></div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px"><label class="search" style="flex:1;min-width:220px">${ic('search')}<input id="ev-q" placeholder="Tìm theo mã, tên tiêu chí hoặc nội dung trích dẫn…" value="${esc(state.ev.q)}" autocomplete="off"></label>
       <select class="sel" style="width:auto" data-act="evf" data-k="pillar"><option value="all">Tất cả trụ cột</option>${axes.map(p => `<option value="${esc(p.id)}" ${state.ev.pillar === p.id ? 'selected' : ''}>${esc(short(p.name, 28))}</option>`).join('')}</select>
-      <select class="sel" style="width:auto" data-act="evf" data-k="status"><option value="all">Mọi trạng thái</option>${['AI_PROPOSED', 'INSUFFICIENT_EVIDENCE', 'MODEL_INVALID', 'ERROR'].map(k => `<option value="${k}" ${state.ev.status === k ? 'selected' : ''}>${ST[k][0]}</option>`).join('')}</select></div>
+      <select class="sel" style="width:auto" data-act="evf" data-k="status"><option value="all">Mọi trạng thái</option>${['AI_PROPOSED', 'AI_NEEDS_REVIEW', 'INSUFFICIENT_EVIDENCE', 'NO_RETRIEVED_EVIDENCE', 'MODEL_INVALID', 'ERROR'].map(k => `<option value="${k}" ${state.ev.status === k ? 'selected' : ''}>${ST[k][0]}</option>`).join('')}</select></div>
     <div id="ev-table">${evTable()}</div></div></div>`;
 }
 function openEvidence(b, y, c) {
@@ -691,10 +650,10 @@ function pMethod() {
   const model = m.models && m.models.length ? m.models.join(', ') : 'mô hình cục bộ (Ollama)';
   const faq = [
     ['Điểm DBI được tính như thế nào?', 'Mỗi tiêu chí được chấm mức 1–5, quy đổi sang thang 0–100 bằng (mức − 1) / 4 × 100. Điểm trụ cột là trung bình các tiêu chí của trụ cột đó. Điểm DBI của ngân hàng là trung bình trên các tiêu chí mà mọi ngân hàng đều đã được chấm, các tiêu chí có trọng số bằng nhau.'],
-    ['Vì sao chỉ so sánh trên tiêu chí chung?', 'Nếu mỗi ngân hàng được chấm trên một tập tiêu chí khác nhau thì điểm không so sánh được. Tập tiêu chí chung đảm bảo ngân hàng nào cũng bị chấm bằng cùng một thước đo. Cái giá là khi mới chấm một phần, số tiêu chí chung còn ít và kết quả mang tính tham khảo.'],
+    ['Vì sao điểm tính theo trụ cột?', 'Mỗi trụ cột có số tiêu chí khác nhau, nên điểm DBI được lấy bằng trung bình của các điểm trụ cột (trọng số bằng nhau) thay vì trung bình thẳng 140 tiêu chí. Ngân hàng chỉ có điểm khi mọi trụ cột đều có ít nhất một tiêu chí được AI chấm; nếu thiếu thì hiện "chưa có điểm" chứ không bị tính 0.'],
     ['"Thiếu bằng chứng" có nghĩa ngân hàng chưa làm không?', 'Không. Nó chỉ nghĩa là hệ thống truy xuất chưa tìm thấy đoạn phù hợp trong báo cáo đã dùng. Ô này không bị tính 0 điểm mà bị loại khỏi phép tính, để không phạt ngân hàng vì cách viết báo cáo.'],
     ['Điểm do AI chấm thì tin được đến đâu?', ag ? `Trên ${ag.n} ô đã kiểm tay, AI khớp chính xác ${f1(ag.exact)}% và lệch không quá 1 mức ở ${f1(ag.within1)}%. Chênh lệch trung bình AI trừ người là ${sgn(ag.bias)} mức.` : 'Chưa có ô nào được kiểm tay nên chưa đo được độ khớp. Mô hình nhỏ chạy cục bộ dễ chấm cao hơn thực tế, vì vậy phải kiểm tay một mẫu trước khi dùng kết quả.'],
-    ['Dữ liệu có đủ để kết luận xếp hạng không?', `Hiện có ${f0(cs.AI_PROPOSED)} ô có điểm trên ${f0(cs.total)} ô đã chạy. Chỉ nên đọc xếp hạng như xu hướng khi số tiêu chí chung còn nhỏ (dưới ${MINC}), và nên mở rộng mẫu trước khi kết luận.`]
+    ['Dữ liệu có đủ để kết luận xếp hạng không?', `Hiện có ${f0(cs.AI_PROPOSED)} ô có điểm trên ${f0(cs.total)} ô đã chạy. Độ phủ giữa các ngân hàng chưa đồng đều và điểm do AI đề xuất, chưa được người kiểm chứng, nên chỉ đọc xếp hạng như xu hướng thăm dò.`]
   ];
   const steps = [['Đọc báo cáo', 'PDF → văn bản từng trang (PyMuPDF), chọn bản OCR khi PDF lỗi chữ.', 'file'], ['Truy xuất bằng chứng', 'Tìm đoạn liên quan bằng TF-IDF kết hợp embedding đa ngôn ngữ, nhiều truy vấn theo từng mức.', 'search'],
     ['AI chấm theo thang mức', `${esc(model)} đọc đoạn trích và đối chiếu thang 5 mức; chỉ nhận điểm khi có trích dẫn trực tiếp.`, 'cpu'], ['Kiểm tay mẫu', 'Người đọc lại trang PDF của một mẫu ô và đo độ khớp với AI.', 'eye'], ['Tổng hợp & xếp hạng', 'Chuẩn hóa 0–100, tính trên tiêu chí chung, xuất bảng xếp hạng.', 'trophy']];
@@ -712,7 +671,7 @@ function pMethod() {
   <div class="grid g3">
     <div class="card reveal"><div class="kicker" style="color:var(--amber2)">1 • Chuẩn hóa mức 1–5</div><div class="formula" style="margin:12px 0">s = (L − 1) / 4 × 100</div><p class="sub">L là mức AI đề xuất cho một tiêu chí. Mức 1 → 0 điểm, mức 5 → 100 điểm.</p></div>
     <div class="card reveal"><div class="kicker" style="color:var(--amber2)">2 • Điểm trụ cột</div><div class="formula" style="margin:12px 0">P = trung bình(s) của các tiêu chí thuộc trụ cột</div><p class="sub">Chỉ tính các tiêu chí đã có điểm; ô thiếu bằng chứng bị loại khỏi phép tính, không bị tính 0.</p></div>
-    <div class="card reveal"><div class="kicker" style="color:var(--amber2)">3 • Điểm DBI</div><div class="formula" style="margin:12px 0">DBI = trung bình(s) trên tiêu chí chung của mọi ngân hàng</div><p class="sub">Trọng số các tiêu chí bằng nhau. Giai đoạn 1–5 = làm tròn(1 + DBI/25).</p></div>
+    <div class="card reveal"><div class="kicker" style="color:var(--amber2)">3 • Điểm DBI</div><div class="formula" style="margin:12px 0">DBI = trung bình các điểm trụ cột (trọng số bằng nhau)</div><p class="sub">Chỉ tính khi mọi trụ cột đều có điểm. Giai đoạn 1–5 = làm tròn(1 + DBI/25).</p></div>
   </div>
   <div class="sec-t reveal"><i></i>Quy trình 5 bước</div>
   <div class="grid g5">${steps.map((s, i) => `<div class="card hv step reveal ${i === 2 ? 'on' : ''}" style="--i:${i}"><div class="step-n">${i + 1}</div><h3 style="margin:12px 0 6px;font-size:13.5px">${s[0]}</h3><p class="sub">${s[1]}</p></div>`).join('')}</div>
@@ -817,12 +776,7 @@ document.addEventListener('click', e => {
   if (a === 'year') { if (t.classList.contains('off')) return; state.year = v; cache.clear(); return render(false); }
   if (a === 'pillar') { e.preventDefault(); if (state.pillars.has(v)) { if (state.pillars.size > 1) state.pillars.delete(v); } else state.pillars.add(v); return render(false); }
   if (a === 'reset') { state.bank = 'all'; state.year = YEARS_DATA.length > 1 ? 'all' : String(YEARS_DATA[YEARS_DATA.length - 1]); state.pillars = new Set(PILLARS.map(p => p.id)); state.compare = true; state.ev = { q: '', pillar: 'all', status: 'all', page: 1 }; state.pf = { q: '', pillar: 'all', page: 1 }; return render(false); }
-  if (a === 'theme-set') {
-    state.theme = normalizeTheme(v);
-    document.documentElement.setAttribute('data-theme', state.theme);
-   safe(() => localStorage.setItem('dbi-theme', state.theme));
-    return render(false);
-  }
+  if (a === 'theme') { state.theme = v; document.documentElement.setAttribute('data-theme', state.theme); safe(() => localStorage.setItem('dbi-theme', state.theme)); return render(false); }
   if (a === 'print') return window.print();
   if (a === 'rk') { state.rk = v; return renderPageOnly(false); }
   if (a === 'profile' || a === 'pnav') { state.bank = v; state.pf.page = 1; if (a === 'profile') return go('profile'); return render(false); }
