@@ -1,0 +1,601 @@
+﻿bank,year,pillar_id,criterion_id,criterion_name,score,status,evidence_count
+TCB,2021,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+TCB,2021,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+TCB,2021,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+TCB,2021,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+TCB,2021,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+TCB,2021,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+TCB,2021,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+TCB,2021,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+TCB,2021,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+TCB,2021,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+TCB,2021,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+TCB,2021,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+TCB,2021,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+TCB,2021,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+TCB,2021,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+TCB,2021,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+TCB,2021,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+TCB,2021,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+TCB,2021,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+TCB,2021,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+TCB,2021,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+TCB,2021,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+TCB,2021,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+TCB,2021,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+TCB,2022,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+TCB,2022,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+TCB,2022,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+TCB,2022,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+TCB,2022,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+TCB,2022,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+TCB,2022,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+TCB,2022,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+TCB,2022,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+TCB,2022,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+TCB,2022,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+TCB,2022,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+TCB,2022,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+TCB,2022,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+TCB,2022,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+TCB,2022,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+TCB,2022,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+TCB,2022,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+TCB,2022,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+TCB,2022,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+TCB,2022,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+TCB,2022,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+TCB,2022,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+TCB,2022,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+TCB,2023,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+TCB,2023,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+TCB,2023,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+TCB,2023,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+TCB,2023,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+TCB,2023,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+TCB,2023,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+TCB,2023,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+TCB,2023,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+TCB,2023,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+TCB,2023,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+TCB,2023,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+TCB,2023,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+TCB,2023,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+TCB,2023,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+TCB,2023,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+TCB,2023,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+TCB,2023,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+TCB,2023,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+TCB,2023,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+TCB,2023,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+TCB,2023,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+TCB,2023,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+TCB,2023,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+TCB,2024,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+TCB,2024,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+TCB,2024,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+TCB,2024,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+TCB,2024,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+TCB,2024,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+TCB,2024,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+TCB,2024,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+TCB,2024,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+TCB,2024,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+TCB,2024,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+TCB,2024,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+TCB,2024,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+TCB,2024,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+TCB,2024,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+TCB,2024,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+TCB,2024,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+TCB,2024,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+TCB,2024,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+TCB,2024,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+TCB,2024,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+TCB,2024,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+TCB,2024,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+TCB,2024,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+TCB,2025,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+TCB,2025,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+TCB,2025,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+TCB,2025,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+TCB,2025,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+TCB,2025,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+TCB,2025,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+TCB,2025,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+TCB,2025,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+TCB,2025,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+TCB,2025,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+TCB,2025,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+TCB,2025,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+TCB,2025,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+TCB,2025,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+TCB,2025,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+TCB,2025,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+TCB,2025,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+TCB,2025,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+TCB,2025,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+TCB,2025,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+TCB,2025,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+TCB,2025,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+TCB,2025,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+HDB,2021,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+HDB,2021,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+HDB,2021,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+HDB,2021,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+HDB,2021,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+HDB,2021,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+HDB,2021,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+HDB,2021,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+HDB,2021,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+HDB,2021,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+HDB,2021,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+HDB,2021,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+HDB,2021,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+HDB,2021,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+HDB,2021,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+HDB,2021,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+HDB,2021,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+HDB,2021,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+HDB,2021,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+HDB,2021,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+HDB,2021,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+HDB,2021,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+HDB,2021,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+HDB,2021,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+HDB,2022,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+HDB,2022,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+HDB,2022,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+HDB,2022,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+HDB,2022,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+HDB,2022,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+HDB,2022,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+HDB,2022,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+HDB,2022,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+HDB,2022,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+HDB,2022,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+HDB,2022,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+HDB,2022,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+HDB,2022,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+HDB,2022,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+HDB,2022,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+HDB,2022,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+HDB,2022,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+HDB,2022,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+HDB,2022,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+HDB,2022,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+HDB,2022,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+HDB,2022,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+HDB,2022,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+HDB,2023,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+HDB,2023,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+HDB,2023,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+HDB,2023,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+HDB,2023,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+HDB,2023,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+HDB,2023,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+HDB,2023,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+HDB,2023,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+HDB,2023,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+HDB,2023,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+HDB,2023,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+HDB,2023,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+HDB,2023,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+HDB,2023,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+HDB,2023,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+HDB,2023,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+HDB,2023,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+HDB,2023,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+HDB,2023,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+HDB,2023,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+HDB,2023,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+HDB,2023,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+HDB,2023,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+HDB,2024,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+HDB,2024,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+HDB,2024,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+HDB,2024,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+HDB,2024,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+HDB,2024,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+HDB,2024,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+HDB,2024,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+HDB,2024,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+HDB,2024,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+HDB,2024,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+HDB,2024,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+HDB,2024,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+HDB,2024,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+HDB,2024,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+HDB,2024,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+HDB,2024,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+HDB,2024,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+HDB,2024,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+HDB,2024,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+HDB,2024,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+HDB,2024,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+HDB,2024,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+HDB,2024,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+HDB,2025,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+HDB,2025,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+HDB,2025,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+HDB,2025,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+HDB,2025,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+HDB,2025,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+HDB,2025,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+HDB,2025,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+HDB,2025,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+HDB,2025,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+HDB,2025,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+HDB,2025,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+HDB,2025,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+HDB,2025,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+HDB,2025,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+HDB,2025,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+HDB,2025,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+HDB,2025,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+HDB,2025,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+HDB,2025,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+HDB,2025,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+HDB,2025,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+HDB,2025,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+HDB,2025,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+TPB,2021,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+TPB,2021,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+TPB,2021,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+TPB,2021,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+TPB,2021,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+TPB,2021,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+TPB,2021,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+TPB,2021,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+TPB,2021,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+TPB,2021,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+TPB,2021,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+TPB,2021,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+TPB,2021,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+TPB,2021,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+TPB,2021,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+TPB,2021,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+TPB,2021,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+TPB,2021,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+TPB,2021,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+TPB,2021,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+TPB,2021,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+TPB,2021,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+TPB,2021,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+TPB,2021,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+TPB,2022,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+TPB,2022,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+TPB,2022,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+TPB,2022,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+TPB,2022,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+TPB,2022,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+TPB,2022,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+TPB,2022,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+TPB,2022,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+TPB,2022,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+TPB,2022,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+TPB,2022,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+TPB,2022,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+TPB,2022,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+TPB,2022,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+TPB,2022,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+TPB,2022,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+TPB,2022,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+TPB,2022,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+TPB,2022,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+TPB,2022,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+TPB,2022,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+TPB,2022,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+TPB,2022,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+TPB,2023,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+TPB,2023,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+TPB,2023,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+TPB,2023,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+TPB,2023,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+TPB,2023,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+TPB,2023,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+TPB,2023,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+TPB,2023,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+TPB,2023,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+TPB,2023,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+TPB,2023,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+TPB,2023,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+TPB,2023,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+TPB,2023,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+TPB,2023,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+TPB,2023,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+TPB,2023,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+TPB,2023,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+TPB,2023,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+TPB,2023,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+TPB,2023,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+TPB,2023,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+TPB,2023,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+TPB,2024,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+TPB,2024,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+TPB,2024,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+TPB,2024,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+TPB,2024,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+TPB,2024,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+TPB,2024,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+TPB,2024,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+TPB,2024,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+TPB,2024,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+TPB,2024,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+TPB,2024,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+TPB,2024,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+TPB,2024,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+TPB,2024,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+TPB,2024,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+TPB,2024,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+TPB,2024,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+TPB,2024,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+TPB,2024,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+TPB,2024,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+TPB,2024,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+TPB,2024,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+TPB,2024,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+TPB,2025,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+TPB,2025,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+TPB,2025,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+TPB,2025,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+TPB,2025,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+TPB,2025,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+TPB,2025,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+TPB,2025,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+TPB,2025,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+TPB,2025,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+TPB,2025,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+TPB,2025,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+TPB,2025,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+TPB,2025,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+TPB,2025,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+TPB,2025,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+TPB,2025,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+TPB,2025,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+TPB,2025,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+TPB,2025,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+TPB,2025,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+TPB,2025,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+TPB,2025,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+TPB,2025,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+VPB,2021,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+VPB,2021,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+VPB,2021,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+VPB,2021,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+VPB,2021,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+VPB,2021,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+VPB,2021,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+VPB,2021,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+VPB,2021,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+VPB,2021,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+VPB,2021,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+VPB,2021,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+VPB,2021,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+VPB,2021,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+VPB,2021,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+VPB,2021,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+VPB,2021,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+VPB,2021,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+VPB,2021,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+VPB,2021,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+VPB,2021,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+VPB,2021,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+VPB,2021,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+VPB,2021,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+VPB,2022,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+VPB,2022,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+VPB,2022,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+VPB,2022,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+VPB,2022,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+VPB,2022,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+VPB,2022,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+VPB,2022,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+VPB,2022,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+VPB,2022,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+VPB,2022,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+VPB,2022,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+VPB,2022,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+VPB,2022,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+VPB,2022,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+VPB,2022,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+VPB,2022,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+VPB,2022,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+VPB,2022,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+VPB,2022,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+VPB,2022,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+VPB,2022,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+VPB,2022,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+VPB,2022,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+VPB,2023,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+VPB,2023,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+VPB,2023,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+VPB,2023,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+VPB,2023,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+VPB,2023,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+VPB,2023,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+VPB,2023,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+VPB,2023,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+VPB,2023,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+VPB,2023,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+VPB,2023,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+VPB,2023,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+VPB,2023,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+VPB,2023,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+VPB,2023,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+VPB,2023,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+VPB,2023,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+VPB,2023,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+VPB,2023,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+VPB,2023,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+VPB,2023,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+VPB,2023,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+VPB,2023,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+VPB,2024,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+VPB,2024,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+VPB,2024,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+VPB,2024,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+VPB,2024,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+VPB,2024,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+VPB,2024,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+VPB,2024,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+VPB,2024,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+VPB,2024,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+VPB,2024,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+VPB,2024,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+VPB,2024,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+VPB,2024,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+VPB,2024,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+VPB,2024,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+VPB,2024,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+VPB,2024,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+VPB,2024,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+VPB,2024,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+VPB,2024,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+VPB,2024,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+VPB,2024,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+VPB,2024,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+VPB,2025,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+VPB,2025,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+VPB,2025,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+VPB,2025,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+VPB,2025,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+VPB,2025,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+VPB,2025,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+VPB,2025,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+VPB,2025,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+VPB,2025,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+VPB,2025,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+VPB,2025,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+VPB,2025,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+VPB,2025,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+VPB,2025,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+VPB,2025,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+VPB,2025,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+VPB,2025,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+VPB,2025,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+VPB,2025,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+VPB,2025,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+VPB,2025,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+VPB,2025,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+VPB,2025,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+BID,2021,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+BID,2021,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+BID,2021,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+BID,2021,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+BID,2021,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+BID,2021,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+BID,2021,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+BID,2021,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+BID,2021,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+BID,2021,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+BID,2021,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+BID,2021,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+BID,2021,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+BID,2021,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+BID,2021,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+BID,2021,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+BID,2021,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+BID,2021,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+BID,2021,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+BID,2021,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+BID,2021,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+BID,2021,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+BID,2021,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+BID,2021,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+BID,2022,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+BID,2022,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+BID,2022,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+BID,2022,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+BID,2022,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+BID,2022,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+BID,2022,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+BID,2022,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+BID,2022,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+BID,2022,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+BID,2022,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+BID,2022,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+BID,2022,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+BID,2022,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+BID,2022,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+BID,2022,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+BID,2022,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+BID,2022,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+BID,2022,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+BID,2022,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+BID,2022,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+BID,2022,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+BID,2022,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+BID,2022,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+BID,2023,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+BID,2023,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+BID,2023,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+BID,2023,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+BID,2023,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+BID,2023,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+BID,2023,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+BID,2023,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+BID,2023,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+BID,2023,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+BID,2023,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+BID,2023,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+BID,2023,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+BID,2023,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+BID,2023,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+BID,2023,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+BID,2023,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+BID,2023,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+BID,2023,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+BID,2023,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+BID,2023,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+BID,2023,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+BID,2023,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+BID,2023,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+BID,2024,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+BID,2024,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+BID,2024,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+BID,2024,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+BID,2024,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+BID,2024,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+BID,2024,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+BID,2024,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+BID,2024,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+BID,2024,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+BID,2024,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+BID,2024,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+BID,2024,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+BID,2024,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+BID,2024,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+BID,2024,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+BID,2024,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+BID,2024,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+BID,2024,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+BID,2024,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+BID,2024,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+BID,2024,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+BID,2024,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+BID,2024,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0
+BID,2025,P1,P1.1,Chiến lược chuyển đổi số,,NO_EVIDENCE,0
+BID,2025,P1,P1.2,Lộ trình triển khai số,,NO_EVIDENCE,0
+BID,2025,P1,P1.3,Quản trị chuyển đổi số,,NO_EVIDENCE,0
+BID,2025,P1,P1.4,Đầu tư cho chuyển đổi số,,NO_EVIDENCE,0
+BID,2025,P2,P2.1,Nền tảng ngân hàng số,,NO_EVIDENCE,0
+BID,2025,P2,P2.2,Kiến trúc và tích hợp hệ thống,,NO_EVIDENCE,0
+BID,2025,P2,P2.3,Ứng dụng đám mây,,NO_EVIDENCE,0
+BID,2025,P2,P2.4,Tự động hóa quy trình,,NO_EVIDENCE,0
+BID,2025,P3,P3.1,Định danh và mở tài khoản số,,NO_EVIDENCE,0
+BID,2025,P3,P3.2,Thanh toán số,,NO_EVIDENCE,0
+BID,2025,P3,P3.3,Trải nghiệm đa kênh,,NO_EVIDENCE,0
+BID,2025,P3,P3.4,Cá nhân hóa sản phẩm,,NO_EVIDENCE,0
+BID,2025,P4,P4.1,Quản trị dữ liệu,,NO_EVIDENCE,0
+BID,2025,P4,P4.2,Kho dữ liệu tập trung,,NO_EVIDENCE,0
+BID,2025,P4,P4.3,Phân tích dữ liệu khách hàng,,NO_EVIDENCE,0
+BID,2025,P4,P4.4,Ứng dụng AI và học máy,,NO_EVIDENCE,0
+BID,2025,P5,P5.1,Số hóa quy trình nội bộ,,NO_EVIDENCE,0
+BID,2025,P5,P5.2,Nâng cao kỹ năng số,,NO_EVIDENCE,0
+BID,2025,P5,P5.3,Năng suất và hiệu quả vận hành,,NO_EVIDENCE,0
+BID,2025,P5,P5.4,Văn hóa đổi mới sáng tạo,,NO_EVIDENCE,0
+BID,2025,P6,P6.1,An ninh mạng,,NO_EVIDENCE,0
+BID,2025,P6,P6.2,Bảo vệ dữ liệu cá nhân,,NO_EVIDENCE,0
+BID,2025,P6,P6.3,Quản trị rủi ro công nghệ,,NO_EVIDENCE,0
+BID,2025,P6,P6.4,Giám sát gian lận giao dịch,,NO_EVIDENCE,0

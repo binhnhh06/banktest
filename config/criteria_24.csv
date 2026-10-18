@@ -1,0 +1,25 @@
+﻿criterion_id,pillar_id,pillar_name,criterion_name,keywords_en,keywords_vi,max_score,source
+P1.1,P1,Chiến lược và quản trị,Chiến lược chuyển đổi số,digital transformation strategy;digital roadmap;digital transformation plan,,4,RECONSTRUCTED_NOT_ORIGINAL
+P1.2,P1,Chiến lược và quản trị,Lộ trình triển khai số,implementation roadmap;digital roadmap;milestones,,4,RECONSTRUCTED_NOT_ORIGINAL
+P1.3,P1,Chiến lược và quản trị,Quản trị chuyển đổi số,digital governance;digital transformation committee;oversight,,4,RECONSTRUCTED_NOT_ORIGINAL
+P1.4,P1,Chiến lược và quản trị,Đầu tư cho chuyển đổi số,technology investment;digital investment;IT investment,,4,RECONSTRUCTED_NOT_ORIGINAL
+P2.1,P2,Công nghệ và hạ tầng,Nền tảng ngân hàng số,digital banking platform;core banking;mobile banking,,4,RECONSTRUCTED_NOT_ORIGINAL
+P2.2,P2,Công nghệ và hạ tầng,Kiến trúc và tích hợp hệ thống,API integration;microservices;system integration,,4,RECONSTRUCTED_NOT_ORIGINAL
+P2.3,P2,Công nghệ và hạ tầng,Ứng dụng đám mây,cloud computing;cloud migration;cloud infrastructure,,4,RECONSTRUCTED_NOT_ORIGINAL
+P2.4,P2,Công nghệ và hạ tầng,Tự động hóa quy trình,process automation;robotic process automation;RPA,,4,RECONSTRUCTED_NOT_ORIGINAL
+P3.1,P3,Sản phẩm và khách hàng,Định danh và mở tài khoản số,eKYC;digital onboarding;online account opening,,4,RECONSTRUCTED_NOT_ORIGINAL
+P3.2,P3,Sản phẩm và khách hàng,Thanh toán số,digital payments;QR payment;mobile payment,,4,RECONSTRUCTED_NOT_ORIGINAL
+P3.3,P3,Sản phẩm và khách hàng,Trải nghiệm đa kênh,omnichannel;customer experience;digital channels,,4,RECONSTRUCTED_NOT_ORIGINAL
+P3.4,P3,Sản phẩm và khách hàng,Cá nhân hóa sản phẩm,personalization;personalized products;tailored services,,4,RECONSTRUCTED_NOT_ORIGINAL
+P4.1,P4,Dữ liệu và phân tích,Quản trị dữ liệu,data governance;data management;master data,,4,RECONSTRUCTED_NOT_ORIGINAL
+P4.2,P4,Dữ liệu và phân tích,Kho dữ liệu tập trung,data warehouse;data lake;enterprise data platform,,4,RECONSTRUCTED_NOT_ORIGINAL
+P4.3,P4,Dữ liệu và phân tích,Phân tích dữ liệu khách hàng,customer analytics;customer insights;data analytics,,4,RECONSTRUCTED_NOT_ORIGINAL
+P4.4,P4,Dữ liệu và phân tích,Ứng dụng AI và học máy,artificial intelligence;machine learning;AI solutions,,4,RECONSTRUCTED_NOT_ORIGINAL
+P5.1,P5,Vận hành và nhân lực,Số hóa quy trình nội bộ,paperless process;workflow digitization;digital operations,,4,RECONSTRUCTED_NOT_ORIGINAL
+P5.2,P5,Vận hành và nhân lực,Nâng cao kỹ năng số,digital skills;digital training;upskilling,,4,RECONSTRUCTED_NOT_ORIGINAL
+P5.3,P5,Vận hành và nhân lực,Năng suất và hiệu quả vận hành,operational efficiency;cost to income ratio;productivity,,4,RECONSTRUCTED_NOT_ORIGINAL
+P5.4,P5,Vận hành và nhân lực,Văn hóa đổi mới sáng tạo,innovation culture;innovation program;digital mindset,,4,RECONSTRUCTED_NOT_ORIGINAL
+P6.1,P6,An toàn và rủi ro,An ninh mạng,cybersecurity;cyber security;security operations,,4,RECONSTRUCTED_NOT_ORIGINAL
+P6.2,P6,An toàn và rủi ro,Bảo vệ dữ liệu cá nhân,data privacy;personal data protection;customer privacy,,4,RECONSTRUCTED_NOT_ORIGINAL
+P6.3,P6,An toàn và rủi ro,Quản trị rủi ro công nghệ,IT risk management;technology risk;operational resilience,,4,RECONSTRUCTED_NOT_ORIGINAL
+P6.4,P6,An toàn và rủi ro,Giám sát gian lận giao dịch,fraud detection;transaction monitoring;anti fraud,,4,RECONSTRUCTED_NOT_ORIGINAL

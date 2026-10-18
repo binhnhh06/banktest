@@ -1,0 +1,9 @@
+{
+  "banks": {"TCB":"Techcombank","HDB":"HDBank","TPB":"TPBank","VPB":"VPBank","BID":"BIDV"},
+  "years": [2021,2022,2023,2024,2025],
+  "dbi_share": 0.8,
+  "dti_share": 0.2,
+  "minimum_coverage_for_ranking": 0.8,
+  "pillar_weights": {"P1":0.20,"P2":0.20,"P3":0.20,"P4":0.15,"P5":0.15,"P6":0.10},
+  "missing_dti_bank_threshold": 2
+}

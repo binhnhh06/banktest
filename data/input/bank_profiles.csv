@@ -1,0 +1,6 @@
+bank,short_name,full_name,founded_year,headquarters,website,digital_app,description,primary_color,source_note
+TCB,Techcombank,Ngân hàng TMCP Kỹ thương Việt Nam,1993,Hà Nội,https://techcombank.com,Techcombank Mobile,Ngân hàng thương mại cổ phần cung cấp các dịch vụ tài chính và ngân hàng số.,#C8102E,Thông tin mô tả cần đối chiếu báo cáo thường niên
+HDB,HDBank,Ngân hàng TMCP Phát triển Thành phố Hồ Chí Minh,1990,TP. Hồ Chí Minh,https://hdbank.com.vn,HDBank,Ngân hàng thương mại cổ phần phát triển các sản phẩm và dịch vụ số.,#D91F26,Thông tin mô tả cần đối chiếu báo cáo thường niên
+TPB,TPBank,Ngân hàng TMCP Tiên Phong,2008,Hà Nội,https://tpb.vn,TPBank Mobile,Ngân hàng phát triển sản phẩm số và hệ thống giao dịch LiveBank.,#673AB7,Thông tin mô tả cần đối chiếu báo cáo thường niên
+VPB,VPBank,Ngân hàng TMCP Việt Nam Thịnh Vượng,1993,Hà Nội,https://vpbank.com.vn,VPBank NEO,Ngân hàng cung cấp các dịch vụ ngân hàng số cho khách hàng cá nhân và doanh nghiệp.,#087947,Thông tin mô tả cần đối chiếu báo cáo thường niên
+BID,BIDV,Ngân hàng TMCP Đầu tư và Phát triển Việt Nam,1957,Hà Nội,https://bidv.com.vn,BIDV SmartBanking,Ngân hàng cung cấp các sản phẩm tài chính và dịch vụ ngân hàng số.,#005B9F,Thông tin mô tả cần đối chiếu báo cáo thường niên

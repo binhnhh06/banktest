@@ -1,0 +1,7 @@
+﻿pillar_id,metric_id,metric_name,direction,lower_bound,upper_bound,unit,source
+P1,digital_investment_ratio,Tỷ lệ đầu tư công nghệ / chi phí hoạt động,high,0,0.25,%,RECONSTRUCTED_EXAMPLE_VALIDATE_BEFORE_USE
+P2,digital_transaction_ratio,Tỷ lệ giao dịch qua kênh số,high,0.3,1.0,ratio,RECONSTRUCTED_EXAMPLE_VALIDATE_BEFORE_USE
+P3,digital_active_users_ratio,Tỷ lệ khách hàng hoạt động số,high,0.1,0.9,ratio,RECONSTRUCTED_EXAMPLE_VALIDATE_BEFORE_USE
+P4,data_analytics_adoption_ratio,Tỷ lệ ứng dụng phân tích dữ liệu,high,0,1,ratio,RECONSTRUCTED_EXAMPLE_VALIDATE_BEFORE_USE
+P5,cir,Cost-to-income ratio (CIR),low,0.25,0.75,ratio,RECONSTRUCTED_EXAMPLE_VALIDATE_BEFORE_USE
+P6,cyber_training_coverage,Tỷ lệ nhân sự hoàn thành đào tạo an ninh mạng,high,0,1,ratio,RECONSTRUCTED_EXAMPLE_VALIDATE_BEFORE_USE

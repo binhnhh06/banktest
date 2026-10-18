@@ -1,0 +1,26 @@
+﻿bank,year,file_count,status,files
+TCB,2021,1,OK,data\reports\TCB\TCB_21CN_BCTN.pdf
+TCB,2022,1,OK,data\reports\TCB\TCB_22CN_BCTN.pdf
+TCB,2023,1,OK,data\reports\TCB\TCB_23CN_BCTN.pdf
+TCB,2024,2,OK,data\reports\TCB\TCB_24CN_BCTN.pdf; data\reports\TCB\TCB_24CN_BV.pdf
+TCB,2025,2,OK,data\reports\TCB\TCB_25CN_BCTN.pdf; data\reports\TCB\TCB_25CN_BV.pdf
+HDB,2021,2,OK,data\reports\HDB\HDB_21CN_BCTN.pdf; data\reports\HDB\HDB_21CN_BCTN_ocr.pdf
+HDB,2022,1,OK,data\reports\HDB\HDB_22CN_BCTN.pdf
+HDB,2023,1,OK,data\reports\HDB\HDB_23CN_BCTN.pdf
+HDB,2024,1,OK,data\reports\HDB\HDB_24CN_BCTN.pdf
+HDB,2025,1,OK,data\reports\HDB\HDB_25CN_BCTN.pdf
+TPB,2021,2,OK,data\reports\TPB\TPB_21CN_BCTN.pdf; data\reports\TPB\TPB_21CN_EN.pdf
+TPB,2022,1,OK,data\reports\TPB\TPB_22CN_EN.pdf
+TPB,2023,2,OK,data\reports\TPB\TPB_23CN_BV.pdf; data\reports\TPB\TPB_23CN_EN.pdf
+TPB,2024,4,OK,data\reports\TPB\TPB_24CN_BCTN.pdf; data\reports\TPB\TPB_24CN_BCTN_ocr.pdf; data\reports\TPB\TPB_24CN_BV.pdf; data\reports\TPB\TPB_24CN_EN.pdf
+TPB,2025,2,OK,data\reports\TPB\TPB_25CN_BCTN.pdf; data\reports\TPB\TPB_25CN_EN.pdf
+VPB,2021,1,OK,data\reports\VPB\VPB_21CN_BCTN.pdf
+VPB,2022,1,OK,data\reports\VPB\VPB_22CN_BCTN.pdf
+VPB,2023,1,OK,data\reports\VPB\VPB_23CN_BCTN.pdf
+VPB,2024,3,OK,data\reports\VPB\VPB_24CN_BCTN.pdf; data\reports\VPB\VPB_24CN_BCTN_EN.pdf; data\reports\VPB\VPB_24CN_BV.pdf
+VPB,2025,2,OK,data\reports\VPB\VPB_25CN_BCTN.pdf; data\reports\VPB\VPB_25CN_BV.pdf
+BID,2021,1,OK,data\reports\BID\BID_21CN_BCTN.pdf
+BID,2022,1,OK,data\reports\BID\BID_2022_BCTN.pdf
+BID,2023,2,OK,data\reports\BID\BID_23CN_BCTN.pdf; data\reports\BID\BID_23CN_BCTN_ocr.pdf
+BID,2024,1,OK,data\reports\BID\BID_24CN_BCTN.pdf
+BID,2025,1,OK,data\reports\BID\BID_25CN_BCTN.pdf
