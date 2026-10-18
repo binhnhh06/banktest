@@ -219,8 +219,17 @@ a{color:inherit}
 .show-tab.on{border-color:rgba(255,123,43,.45);background:rgba(255,123,43,.07)}
 .show-tab small{font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--tx3)}
 .show-tab b{display:block;font-size:13px;margin:3px 0}
-.show-tab p{margin:0;font-size:11px;color:var(--tx2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.show-tab .pr{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--amber);box-shadow:0 0 10px var(--amber)}
+.show-tab p {
+    margin: 0;
+    font-size: 11px;
+    color: var(--tx2);
+
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}.show-tab .pr{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--amber);box-shadow:0 0 10px var(--amber)}
 .stage{display:grid;grid-template-columns:1.25fr 1fr;gap:20px;margin-top:16px}
 .player{position:relative;border-radius:22px;border:1px solid var(--line);background:linear-gradient(160deg,#10203f,#060d1d);padding:26px;min-height:300px;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between}
 .player{color:#f8fafc}

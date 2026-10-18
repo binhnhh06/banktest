@@ -518,50 +518,46 @@ function pager(t, total, per, page) {
 
 /* =====================  TRANG 3: BAN DO CHUYEN DOI SO  ===================== */
 function pMap() {
-  const v = view(), rk = v.ranked;
-  if (!rk.length) return noData();
-  const avg = mean(rk.map(b => b.val)), ys = yearsSeries(), axes = PILLARS.filter(p => state.pillars.has(p.id));
-  const slides = rk.map(b => { const t = topRows(b.code).find(r => r.q && r.q.length) || topRows(b.code)[0]; return { b, t }; });
-  state.show = state.show % slides.length;
-  const cur = slides[state.show];
-  const withD = rk.filter(b => num(b.delta));
-  const stageOf = b => levelOf(b.val);
-  const bands = ['< 12,5', '12,5 – 37,5', '37,5 – 62,5', '62,5 – 87,5', '≥ 87,5'];
-  const best = b => axes.map(p => ({ p, v: b.pil[p.id].score })).filter(x => num(x.v)).sort((a, c) => c.v - a.v)[0];
+  const v = view();
+  const axes = PILLARS.filter(p => state.pillars.has(p.id));
+  const codes = BANKS.filter(b => state.bank === 'all' || state.bank === b.code);
+  const ykeys = state.year === 'all' ? YEARS_DATA : [+state.year];
+  const pill = (code, pid) => {
+    let values = [], n = 0, total = 0;
+    ykeys.forEach(y => {
+      const ids = CIDS.filter(c => CRIT[c].p === pid), m = (IDX[code] || {})[y] || {};
+      total += ids.length;
+      const good = ids.map(c => m[c]).filter(r => r && r.s === 'AI_PROPOSED' && num(r.l));
+      n += good.length;
+      if (good.length) values.push(mean(good.map(r => (r.l - 1) * 25)));
+    });
+    return {val:mean(values), n,total, coverage:total ? n / total * 100 : 0};
+  };
+  const result = codes.map(b => {
+    const cols = axes.map(p => ({...pill(b.code,p.id), id:p.id, name:p.name}));
+    return {code:b.code,cols,score:cols.length && cols.every(x => num(x.val)) ? mean(cols.map(x => x.val)) : null,
+      n:cols.reduce((a,x)=>a+x.n,0),total:cols.reduce((a,x)=>a+x.total,0)};
+  }).sort((a,b)=>(b.score??-1)-(a.score??-1));
+  const heat = x => !num(x) ? 'background:var(--surface2,rgba(130,145,160,.1));color:var(--tx2)' :
+    `background:hsla(${Math.round(x * 1.4 + 5)},72%,48%,.19);color:var(--tx)`;
+  const cell = x => num(x.val) ? `${f1(x.val)}<small style="display:block;font-size:10px;opacity:.7">${f1(x.coverage)}% phủ</small>` : '—';
   return `<div class="stack">
-  <div class="card hero reveal"><div style="position:relative"><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">${tag('BẢN ĐỒ CHUYỂN ĐỔI SỐ', 'am')}${tag(esc(v.label), 'em')}</div>
-    <h2 style="font-size:28px;max-width:780px;line-height:1.15">Bản đồ chuyển đổi số ${rk.length} ngân hàng ${esc(v.label)}</h2>
-    <p class="mut" style="max-width:720px;margin:10px 0 0">Vị trí mỗi ngân hàng trên thang 5 giai đoạn, quy đổi từ điểm DBI. Phần "Bằng chứng nổi bật" bên dưới là đoạn trích thật từ báo cáo, tự chuyển cảnh.</p></div></div>
-  <div class="grid g4">
-    <div class="card kpi reveal" style="--i:1"><div class="hd"><div class="kicker">Điểm trung bình ngành</div><div class="kpi-ic">${ic('graph')}</div></div><div class="big">${count(avg, 1)}</div><div class="ft"><span>Mức TB ≈ ${(1 + avg / 25).toFixed(1).replace('.', ',')}/5</span></div></div>
-    <div class="card kpi reveal" style="--i:2"><div class="hd"><div class="kicker">Dẫn đầu kỳ</div><div class="kpi-ic em">${ic('trophy')}</div></div><div class="big" style="font-size:32px">${esc(bank(rk[0].code).name)}</div><div class="ft"><span>${f1(rk[0].val)} điểm</span></div></div>
-    <div class="card kpi reveal" style="--i:3"><div class="hd"><div class="kicker">Tăng mạnh nhất</div><div class="kpi-ic cy">${ic('trend')}</div></div>${withD.length ? `<div class="big" style="font-size:32px">${esc(bank(withD.sort((a, c) => c.delta - a.delta)[0].code).name)}</div><div class="ft"><span class="up">${sgn(withD[0].delta)} điểm</span></div>` : '<div class="mut" style="font-size:13px">Cần ít nhất 2 năm dữ liệu</div><div class="ft"><span>Chưa tính được</span></div>'}</div>
-    <div class="card kpi reveal" style="--i:4"><div class="hd"><div class="kicker">Đạt mức Dẫn đầu trở lên</div><div class="kpi-ic vi">${ic('check')}</div></div><div class="big">${rk.filter(b => stageOf(b) >= 4).length}<small>/ ${rk.length}</small></div><div class="ft"><span>Điểm ≥ 62,5</span></div></div>
-  </div>
-  <div class="reveal" style="--i:5">${reliabilityNote(v)}</div>
-  <div class="card reveal" style="--i:6" id="showcase"><div class="chd"><div><div class="kicker" style="color:var(--amber2)">BẰNG CHỨNG TỪ BÁO CÁO</div><h2 style="font-size:20px;margin-top:4px">Khám phá năng lực qua trích dẫn thật</h2></div><span class="tag">Tự chuyển 5 giây • rê chuột để dừng</span></div>
-    <div class="show-tabs" style="grid-template-columns:repeat(${slides.length},1fr)">${slides.map((s, i) => `<button class="show-tab ${i === state.show ? 'on' : ''}" data-act="show" data-v="${i}"><small>0${i + 1} • HẠNG #${s.b.rank}</small><b>${esc(bank(s.b.code).name)}</b><p>${s.t ? esc(CRIT[s.t.c].t) : 'Chưa có trích dẫn'}</p><span class="pr"></span></button>`).join('')}</div>
-    <div class="stage"><div class="player"><div style="display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1"><span class="tag am"><i class="ping am"></i>${esc(cur.b.code)} • ${cur.t ? 'TRANG ' + esc(cur.t.pg || '—') : 'CHƯA CÓ TRÍCH DẪN'}</span><div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-      <div style="position:relative;z-index:1"><div class="quote" style="color:#f8fafc">${cur.t && cur.t.q && cur.t.q[0] ? '“' + esc(short(cur.t.q[0], 330)) + '”' : 'Chưa có đoạn trích cho ngân hàng này ở kỳ đã chọn.'}</div></div>
-      <div style="position:relative;z-index:1;font-size:11px;color:#94a3b8">Điểm AI đề xuất • ${cur.t ? 'Mức ' + cur.t.l + '/5' : ''}</div></div>
-    <div><div class="kicker">THÔNG SỐ ${esc(bank(cur.b.code).name.toUpperCase())}</div><h3 style="font-size:20px;margin:8px 0">${cur.t ? esc(CRIT[cur.t.c].t) : esc(bank(cur.b.code).full)}</h3>
-      <p class="mut" style="font-size:12.5px;margin:0 0 14px">${cur.t ? esc(pname(CRIT[cur.t.c].p)) + ' • tiêu chí ' + esc(cur.t.c) : ''}</p>
-      <div class="grid g3" style="gap:10px"><div class="mini-stat"><small>Điểm DBI</small><b style="color:var(--amber2)">${f1(cur.b.val)}</b></div><div class="mini-stat"><small>Độ phủ</small><b style="color:var(--cy)">${f1(cur.b.coverage)}%</b></div><div class="mini-stat"><small>Giai đoạn</small><b style="font-size:15px;color:var(--em)">${LV[stageOf(cur.b) - 1]}</b></div></div>
-      ${cur.t ? `<button class="btn sm" style="margin-top:14px" data-act="ev-open" data-b="${cur.b.code}" data-y="${cur.t.y}" data-c="${cur.t.c}">Xem chi tiết bằng chứng ${ic('right')}</button>` : ''}</div></div></div>
-  <div class="card reveal" style="--i:7"><div class="chd"><div><h2>Ma trận lộ trình và phân cấp giai đoạn</h2><p class="sub">Giai đoạn quy đổi từ điểm DBI: mức TB = 1 + điểm/25</p></div></div>
-    <div class="scroll-x"><table class="tbl"><thead><tr><th>Ngân hàng</th><th class="c">Điểm</th><th>Giai đoạn</th><th>Trụ cột mạnh nhất</th><th class="r">Biến động</th><th>Xu hướng</th></tr></thead><tbody>
-    ${rk.map(b => { const bs = best(b), st = stageOf(b); return `<tr class="${state.bank === b.code ? 'me' : ''}"><td><div class="bk">${av(b.code)}<div><b>${esc(bank(b.code).name)}</b><small>Hạng #${b.rank}</small></div></div></td>
-      <td class="c"><span class="chip-s" style="background:linear-gradient(135deg,#ff9e44,#ff7b2b);color:#fff;font-size:12px">${count(b.val, 1)}</span></td>
-      <td>${tag('Giai đoạn ' + st + ': ' + LV[st - 1], LV_TAG[st - 1])}</td><td>${bs ? `<span class="tag" style="color:${pcol(bs.p.id)}" data-tip="${esc(bs.p.name)}: ${f1(bs.v)}">${esc(short(bs.p.name, 22))} • ${f1(bs.v)}</span>` : '—'}</td>
-      <td class="r ${num(b.delta) ? (b.delta >= 0 ? 'up' : 'dn') : 'mut3'}"><b>${num(b.delta) ? sgn(b.delta) : '—'}</b></td>
-      <td>${spark(ys.map(r => r.banks[b.code].has ? r.banks[b.code].val : null), bcol(b.code))}</td></tr>`; }).join('')}</tbody></table></div></div>
-  <div class="stage-cards reveal" style="--i:8">${LV.map((n, i) => { const inL = rk.filter(b => stageOf(b) === i + 1); return `<div class="sc ${inL.length ? 'has' : ''}"><small>GIAI ĐOẠN ${i + 1} • ${bands[i]}</small><b>${n}</b><p>${inL.length ? inL.map(b => `<span class="tag" style="margin:2px 4px 2px 0;color:${bcol(b.code)}">${esc(b.code)}</span>`).join('') : 'Chưa có ngân hàng'}</p></div>`; }).join('')}</div>
-  <div class="grid g21">
-    <div class="card reveal" style="--i:9"><div class="chd"><div><h2>Ma trận điểm và thay đổi</h2><p class="sub">Trục dọc: thay đổi điểm ${v.mode === 'year' ? 'so năm trước' : 'đầu → cuối kỳ'}</p></div></div>
-      ${withD.length >= 2 ? scatter(withD.map(b => ({ code: b.code, name: bank(b.code).name, x: b.val, y: b.delta, color: bcol(b.code) })), avg, mean(withD.map(b => b.delta))) : `<div class="empty"><b>Cần dữ liệu từ 2 năm trở lên</b>Hiện mới có ${ys.length} năm có điểm nên chưa vẽ được ma trận tăng trưởng. Chấm thêm năm khác rồi chạy lại build_dashboard_data.py.</div>`}</div>
-    <div class="card reveal" style="--i:10"><div class="chd"><div><h2>Độ lệch so với trung bình</h2><p class="sub">Trung bình ngành: ${f1(avg)}</p></div></div>
-      ${rk.map(b => { const d = b.val - avg; return `<div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;margin-bottom:6px"><span>${esc(bank(b.code).name)}</span><span class="${d >= 0 ? 'up' : 'dn'}">${sgn(d)} đ</span></div>${bar(Math.abs(d) / Math.max(1, ...rk.map(x => Math.abs(x.val - avg))) * 100, d >= 0 ? 'em' : '')}</div>`; }).join('')}</div>
-  </div></div>`;
+    <div class="card hero"><div class="kicker">BẢN ĐỒ CHUYỂN ĐỔI SỐ • ${esc(v.label)}</div>
+      <h2 style="font-size:25px;margin:8px 0">Bản đồ nhiệt DBI — 5 ngân hàng × 6 trụ cột</h2>
+      <p class="mut">Điểm AI sơ bộ 0–100 = (mức 1–5 − 1) × 25. Mỗi trụ cột lấy trung bình các tiêu chí có điểm; DBI là trung bình của 6 trụ cột có đủ dữ liệu. Độ phủ cho biết tỷ lệ tiêu chí đã có điểm AI. Dữ liệu thiếu không tính là 0.</p>
+      <div class="row" style="gap:8px;flex-wrap:wrap;margin-top:15px"><button class="btn sm ${state.year==='all'?'pri':''}" data-act="year" data-v="all">Toàn kỳ</button>
+      ${YEARS_DATA.map(y=>`<button class="btn sm ${String(state.year)===String(y)?'pri':''}" data-act="year" data-v="${y}">${y}</button>`).join('')}</div>
+    </div>
+    <div class="card"><div class="chd"><div><h2>Ma trận năng lực số theo trụ cột</h2><p class="sub">Nhấn vào ngân hàng để xem hồ sơ chi tiết. Màu đậm hơn thể hiện điểm cao hơn; tỷ lệ phủ được ghi trong từng ô.</p></div></div>
+    <div class="scroll-x"><table class="tbl dbi-heat"><thead><tr><th>Ngân hàng</th>${axes.map(p=>`<th class="c" title="${esc(p.name)}">${esc(p.name)}</th>`).join('')}<th class="c">DBI sơ bộ</th><th class="c">Độ phủ</th></tr></thead><tbody>
+    ${result.map(r=>`<tr><td><button class="btn sm sq" data-act="profile" data-v="${r.code}">${esc(bank(r.code).name)} ${ic('right')}</button></td>
+    ${r.cols.map(x=>`<td class="c heat-cell" style="${heat(x.val)}" title="${esc(x.name)}: ${f1(x.val)} điểm; ${x.n}/${x.total} tiêu chí có điểm">${cell(x)}</td>`).join('')}
+    <td class="c"><b>${f1(r.score)}</b></td><td class="c">${r.total ? f1(r.n/r.total*100):'—'}%</td></tr>`).join('')}</tbody></table></div></div>
+    <div class="card"><div class="chd"><div><h2>Lộ trình trưởng thành số theo năm</h2><p class="sub">Điểm DBI sơ bộ từ các tiêu chí đã có bằng chứng; không suy diễn điểm cho tiêu chí thiếu dữ liệu.</p></div></div>
+    <div class="scroll-x"><table class="tbl"><thead><tr><th>Ngân hàng</th>${YEARS_DATA.map(y=>`<th class="c">${y}</th>`).join('')}<th class="c">Bình quân kỳ</th></tr></thead><tbody>
+    ${codes.map(b=>`<tr><td><b>${esc(b.name)}</b></td>${YEARS_DATA.map(y=>`<td class="c">${f1(calcYear(y).banks[b.code].val)}</td>`).join('')}<td class="c"><b>${f1(view().banks[b.code].val)}</b></td></tr>`).join('')}</tbody></table></div></div>
+    <div class="note in">${ic('info')} Kết quả nghiên cứu sơ bộ từ AI. Chưa xác nhận thủ công; so sánh giữa ngân hàng chỉ nên diễn giải cùng độ phủ dữ liệu. Các ô không đủ dữ liệu được để trống.</div>
+  </div>`;
 }
 
 /* =====================  TRANG 4: BANG CHUNG  ===================== */
@@ -724,22 +720,8 @@ function mountPage() {
     if (code) typer(document.getElementById('typer'), document.getElementById('typer-meta'),
       topRows(code).filter(r => r.q && r.q[0]).slice(0, 6).map(r => ({ text: short(r.q[0], 300), meta: `Tiêu chí ${r.c} • ${CRIT[r.c].t} • trang ${r.pg || '—'} • mức ${r.l}/5` })));
   }
-  if (state.page === 'map') {
-    const host = document.getElementById('showcase'); if (!host) return;
-    const tabs = [...host.querySelectorAll('.show-tab')]; if (!tabs.length) return;
-    const dur = 5000; let t0 = performance.now(), paused = false, raf = 0, pausedAt = 0;
-    const step = t => {
-      if (!paused) {
-        const k = Math.min(1, (t - t0) / dur), pr = tabs[state.show] && tabs[state.show].querySelector('.pr'); if (pr) pr.style.width = (k * 100) + '%';
-        if (k >= 1) { state.show = (state.show + 1) % tabs.length; swapSlide(); return; }
-      }
-      raf = requestAnimationFrame(step);
-    };
-    host.addEventListener('mouseenter', () => { paused = true; pausedAt = performance.now(); });
-    host.addEventListener('mouseleave', () => { paused = false; t0 += performance.now() - pausedAt; });
-    if (!REDUCED) raf = requestAnimationFrame(step);
-    cleanups.push(() => cancelAnimationFrame(raf));
-  }
+  // Map: no autoplay or automatic re-render.
+
 }
 function swapSlide() { renderPageOnly(false); }
 
