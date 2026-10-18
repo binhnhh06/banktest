@@ -138,6 +138,7 @@ banktest/
 ├─ assets/banks/<MÃ>/         Logo, ảnh nền, ảnh ứng dụng của từng ngân hàng
 ├─ config/criteria.csv        140 tiêu chí và mô tả 5 mức
 ├─ data/output/               Kết quả chấm điểm (gemini_proposals_v3.csv...)
+├─ data/review/               Phiếu kiểm tay 40 ô (review_sample_40.csv)
 ├─ auto_propose_v3.py         Truy xuất bằng chứng từ PDF
 ├─ gemini_score_v3.py         Chấm điểm bằng Gemini
 ├─ build_dashboard_data.py    CSV → dashboard/data.js
@@ -173,7 +174,7 @@ Tỷ lệ bản ghi có điểm AI đề xuất đạt khoảng **75,09%**.
 
 ## 6. Các chức năng Dashboard
 
-Thanh bên cho phép lọc theo ngân hàng, năm và trụ cột, bật/tắt chế độ so sánh với trung bình ngành, và chọn **giao diện nền Navy / Slate / Light**. Nút "Xuất PDF" dùng chức năng in của trình duyệt.
+Thanh bên cho phép lọc theo ngân hàng, năm và trụ cột, bật/tắt chế độ so sánh với trung bình ngành, và chọn **giao diện nền Tối / Trưa / Sáng**. Nút "Xuất PDF" dùng chức năng in của trình duyệt.
 
 ### 6.1. Tổng quan
 
@@ -291,6 +292,20 @@ python build_dashboard_data.py
 ```
 
 **Không đưa API key vào Git.** Chỉ đặt khóa bằng biến môi trường.
+
+### 8.5. Kiểm chứng điểm AI bằng người (mẫu 40 ô)
+
+Để đo độ tin cậy của điểm Gemini, nhóm đối chiếu một mẫu 40 ô (8 ô mỗi ngân hàng) với báo cáo gốc:
+
+```bash
+python make_review_sample.py      # tạo data/review/review_sample_40.csv (điểm AI được giấu để chấm mù)
+```
+
+1. Mở `data/review/review_sample_40.csv` bằng Excel. Với mỗi dòng, mở PDF ở trang `page`, đọc `evidence_quote`, đối chiếu 5 mức `rubric_level_1..5` rồi điền mức 1–5 vào cột `human_level` (có thể ghi thêm `reviewer`, `note`).
+2. Lưu file (giữ định dạng CSV UTF-8), chạy `python build_dashboard_data.py` và đồng bộ `data.js` sang `docs/`.
+3. Trang **Bằng chứng** sẽ hiển thị số ô đã kiểm tay, tỷ lệ khớp chính xác, tỷ lệ lệch không quá 1 mức và chênh lệch trung bình (AI − người).
+
+Lệnh `make_review_sample.py` từ chối chạy nếu phiếu đã tồn tại, để không ghi đè phiếu đã điền (chỉ dùng `--force` khi thật sự muốn tạo lại).
 
 ## 9. Giới hạn nghiên cứu
 

@@ -13,6 +13,8 @@ EVIDENCE=ROOT/'data/output/evidence_top3_v3.csv'
 OLD_EVIDENCE=ROOT/'data/output/auto_proposals_v3.csv'
 DEST=ROOT/'data/output/gemini_proposals_v3.csv'
 DETAIL=ROOT/'data/output/gemini_evidence_audit_v3.csv'
+RETRY_LOG=ROOT/'data/output/retry_missing_once_history.csv'
+RETRY_FIELDS=['bank','year','criterion_id','previous_status','new_status','attempted_at','api_calls','evidence_count']
 BANKS=['TCB','HDB','TPB','VPB','BID']
 YEARS=range(2021,2026)
 BASE=['bank','year','criterion_id','pillar_name','title','proposed_level','decision','confidence','reason',
@@ -256,7 +258,16 @@ def main():
     p.add_argument('--refresh-missing',action='store_true',help='Search local PDFs for NO_RETRIEVED_EVIDENCE (slower)')
     p.add_argument('--recheck',action='store_true',help='Explicitly rescore all selected items')
     p.add_argument('--retry-missing',action='store_true',help='Retry previously missing/insufficient evidence items using fresh PDF search')
+    p.add_argument('--retry-missing-once',action='store_true',help='Retry each previously missing/insufficient item only once; persist retry history')
+    p.add_argument('--max-items',type=int,default=100,help='Maximum criteria processed in retry-missing-once mode (default 100)')
+    p.add_argument('--new-only', action='store_true',
+                   help='Score only bank-year-criteria keys absent from output CSV')
     args=p.parse_args()
+    if args.retry_missing_once and (args.recheck or args.retry_missing):p.error('--retry-missing-once cannot be combined with --recheck or --retry-missing')
+    if args.max_items<1:p.error('--max-items must be >= 1')
+    if args.retry_missing_once and not args.refresh_missing:
+        print('INFO: --retry-missing-once automatically enables PDF fallback search.')
+        args.refresh_missing=True
     if not 1<=args.limit<=7000:p.error('limit 1..7000')
     if not os.getenv('GEMINI_API_KEY'):p.error('Set GEMINI_API_KEY in PowerShell first')
     criteria=read_csv(CRITERIA)
@@ -271,6 +282,8 @@ def main():
             print(f'Imported {len(old)} existing results from {legacy.name}; v2 file is unchanged.')
     history={(r['bank'],str(r['year']),r['criterion_id']):r for r in old}
     evindex=load_evidence()
+    retry_rows=read_csv(RETRY_LOG) if args.retry_missing_once else []
+    attempted={(r['bank'],str(r['year']),r['criterion_id']) for r in retry_rows}
     jobs=[]
     for bank in BANKS:
         if args.bank and bank!=args.bank:continue
@@ -279,19 +292,31 @@ def main():
             for c in criteria:
                 if idset and c['criterion_id'] not in idset:continue
                 key=(bank,str(year),c['criterion_id'])
+                if args.retry_missing_once:
+                    if key not in history or history[key].get('decision') not in ('NO_RETRIEVED_EVIDENCE','INSUFFICIENT_EVIDENCE') or key in attempted:
+                        continue
+                    jobs.append((key,c))
+                    continue
+                if args.new_only and key in history:
+                    continue
                 if key in history and not args.recheck:
                     status=history[key].get('decision')
                     retryable={'ERROR','AI_NEEDS_REVIEW'}
                     if args.retry_missing:retryable|={'NO_RETRIEVED_EVIDENCE','INSUFFICIENT_EVIDENCE'}
                     if status not in retryable:continue
                 jobs.append((key,c))
-    if not jobs:print('No pending jobs; use --retry-missing or --recheck if needed.');return
+    if not jobs:
+        print('No eligible jobs. For retry-missing-once, all previously missing/insufficient rows may already have been attempted.')
+        return
     print(f'Jobs={len(jobs)}; maximum API calls={args.limit}; output={DEST}')
     from google import genai
     client=genai.Client(api_key=os.environ['GEMINI_API_KEY'])
     calls=0;processed=0;audit=[]
     for key,c in jobs:
+        if args.retry_missing_once and processed>=args.max_items:break
         bank,year,cid=key
+        previous_status=history[key].get('decision') if key in history else ''
+        calls_before=calls
         ev=independent_evidence(evindex.get(key,[]),5)
         if args.refresh_missing:
             fresh=extract_fallback(bank,int(year),c,7)
@@ -334,16 +359,24 @@ def main():
             except Exception as exc:
                 msg=f'{type(exc).__name__}: {exc}'
                 record.update(decision='ERROR',error=msg[:600],reason='API/schema error; no score')
-                history[key]=record;atomic_csv(DEST,list(history.values()),FIELDS)
                 print(f'{bank} {year} {cid}: ERROR {msg[:180]}')
                 if not isinstance(exc, (ValueError, json.JSONDecodeError)):
+                    if not args.retry_missing_once:
+                        history[key]=record;atomic_csv(DEST,list(history.values()),FIELDS)
                     print('Stopping after API/server error. Resume after resolving it.');break
+                history[key]=record;atomic_csv(DEST,list(history.values()),FIELDS)
+                if args.retry_missing_once:
+                    retry_rows.append(dict(bank=bank,year=year,criterion_id=cid,previous_status=previous_status,new_status='ERROR',attempted_at=record['evaluated_at'],api_calls=calls-calls_before,evidence_count=len(ev)))
+                    atomic_csv(RETRY_LOG,retry_rows,RETRY_FIELDS)
                 print('Invalid Gemini output; keeping ERROR for retry and continuing to next criterion.')
                 processed+=1
                 continue
             if args.delay>0 and calls<args.limit:time.sleep(args.delay)
         history[key]=record;processed+=1
         atomic_csv(DEST,list(history.values()),FIELDS)
+        if args.retry_missing_once:
+            retry_rows.append(dict(bank=bank,year=year,criterion_id=cid,previous_status=previous_status,new_status=record['decision'],attempted_at=record['evaluated_at'],api_calls=calls-calls_before,evidence_count=len(ev)))
+            atomic_csv(RETRY_LOG,retry_rows,RETRY_FIELDS)
         if audit:
             oldaudit=[r for r in read_csv(DETAIL) if (r['bank'],str(r['year']),r['criterion_id'])!=key]
             # Preserve audit of other existing keys as well as those processed this run.
@@ -351,6 +384,7 @@ def main():
             atomic_csv(DETAIL,list(current.values()),AUDIT_FIELDS)
         print(f'{bank} {year} {cid}: {record["decision"]} {record["proposed_level"]} verify={record["verification"]}')
     print('Saved:',DEST,'rows=',len(history),'API calls=',calls,'processed=',processed)
+    if args.retry_missing_once:print('Retry-once history:',RETRY_LOG,'total attempts=',len(retry_rows))
     print('Statuses:',dict(Counter(r['decision'] for r in history.values())))
     print('No automatic approval; keep official DBI scores separate. Output is v3 only.')
 

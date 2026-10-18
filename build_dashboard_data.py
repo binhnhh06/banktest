@@ -102,6 +102,25 @@ def main():
        'n':len([p for p in (r.get('page') or '').split(';') if p.strip()]),
        'src':trim(r.get('source_file'),400),'verify':r.get('verification','')}
   rows.append(rec)
+ # phieu kiem tay (data/review/review_sample_40.csv): cot human_level 1-5 do nguoi dien
+ agreement=None
+ REV=ROOT/'data'/'review'/'review_sample_40.csv'
+ if REV.exists():
+  hv={}
+  for r in read(REV):
+   try:
+    h=int(float((r.get('human_level') or '').strip()))
+   except ValueError:continue
+   if 1<=h<=5:hv[((r.get('bank') or '').strip().upper(),int(r.get('year') or 0),(r.get('criterion_id') or '').strip())]=h
+  diffs=[]
+  for rec in rows:
+   h=hv.get((rec['b'],rec['y'],rec['c']))
+   if h:
+    rec['hv']=h
+    if rec['s']=='AI_PROPOSED' and rec['l']:diffs.append(rec['l']-h)
+  if diffs:
+   agreement={'n':len(diffs),'exact':round(100*sum(d==0 for d in diffs)/len(diffs),1),
+    'within1':round(100*sum(abs(d)<=1 for d in diffs)/len(diffs),1),'bias':round(sum(diffs)/len(diffs),2)}
  images={}
  for b,_,_ in BANKS:
   d=ROOT/'assets'/'banks'/b
@@ -109,11 +128,12 @@ def main():
    hit=next((f for st in stems for f in sorted(d.glob(st+'.*')) if f.suffix.lower() in ('.png','.jpg','.jpeg','.jfif','.webp','.svg')),None) if d.exists() else None
    if hit: images.setdefault(b,{})[kind]='../assets/banks/'+b+'/'+hit.name
  payload={'meta':{'images':images,'generated_at':datetime.now().strftime('%Y-%m-%d %H:%M'),'models':sorted(models),
-   'versions':['gemini-v3'],'n_criteria':len(criteria),'min_common':8,'agreement':None,'source':'Gemini v3 AI suggestions (not human-validated)',
+   'versions':['gemini-v3'],'n_criteria':len(criteria),'min_common':8,'agreement':agreement,'source':'Gemini v3 AI suggestions (not human-validated)',
    'statuses':statuses},'banks':[{'code':b,'name':n,'full':f} for b,n,f in BANKS], 'years':YEARS,
    'years_with_data':YEARS,'files':[[b,y] for b,_,_ in BANKS for y in YEARS], 'pillars':pillars,'criteria':criteria,'rows':rows}
  OUT.parent.mkdir(parents=True,exist_ok=True)
  tmp=OUT.with_suffix('.tmp');tmp.write_text('window.DBI = '+json.dumps(payload,ensure_ascii=False,separators=(',',':'))+';\n',encoding='utf-8');tmp.replace(OUT)
  print('OK:',OUT,'records:',len(rows),'AI scores:',sum(r['s']=='AI_PROPOSED' for r in rows),'statuses:',statuses)
  print('Source untouched:',SOURCE)
+ print('Do khop AI-nguoi:',agreement or 'chua co (dien cot human_level trong data/review/review_sample_40.csv)')
 if __name__=='__main__':main()

@@ -391,7 +391,7 @@ function pOverview() {
       <div class="ft"><span>${v.reliable ? tag('Độ phủ ổn', 'em') : tag('Độ phủ chưa đều', 'wn')}</span><span>${cs.hv ? f0(cs.hv) + ' ô đã kiểm tay' : 'Chưa kiểm tay'}</span></div></div>
   </div>
   <div class="reveal" style="--i:5">${reliabilityNote(v)}</div>
-  <div class="card reveal" style="--i:6"><div class="chd"><div style="display:flex;align-items:center;gap:10px"><i class="ping am"></i><div><h2>Bảng xếp hạng DBI ${esc(v.label)}</h2><p class="sub">${BANKS.length} ngân hàng • điểm trên tập tiêu chí chung</p></div></div>
+  <div class="card reveal" style="--i:6"><div class="chd"><div style="display:flex;align-items:center;gap:10px"><i class="ping am"></i><div><h2>Bảng xếp hạng DBI ${esc(v.label)}</h2><p class="sub">${BANKS.length} ngân hàng • điểm sơ bộ = trung bình các trụ cột</p></div></div>
     <div class="seg"><button class="${state.rk === 'val' ? 'on' : ''}" data-act="rk" data-v="val">Tổng điểm DBI</button><button class="${state.rk === 'delta' ? 'on' : ''}" data-act="rk" data-v="delta">Tăng trưởng</button></div></div>
     <div class="scroll-x"><table class="tbl"><thead><tr><th>Hạng</th><th>Ngân hàng</th><th style="min-width:200px">Điểm DBI</th><th>Độ phủ</th><th>Thế mạnh cốt lõi</th><th class="r">Biến động</th><th></th></tr></thead><tbody>
     ${order.map(b => { const bk = bank(b.code); if (!b.has) return `<tr style="opacity:.55"><td><div class="rk">–</div></td><td><div class="bk">${av(b.code)}<div><b>${esc(bk.name)}</b><small>${esc(b.code)} • ${esc(bk.full)}</small></div></div></td><td colspan="5" class="mut">Chưa có điểm ở kỳ đã chọn</td></tr>`;
@@ -407,7 +407,7 @@ function pOverview() {
   <div class="grid g2">
     <div class="card reveal" style="--i:7"><div class="chd"><div><h2>Xu hướng DBI theo năm</h2><p class="sub">Điểm sơ bộ (trung bình các trụ cột) của từng năm</p></div><div class="legend">${series.map(s => `<span><i style="background:${s.color}"></i>${esc(s.code)}</span>`).join('')}</div></div>
       ${ys.length ? lineChart(ys.map(r => r.year), series) : ''}
-      ${ys.length < 2 ? `<p class="sub" style="margin-top:8px">Mới có dữ liệu ${ys.length} năm nên chưa vẽ được xu hướng. Chấm thêm các năm khác để thấy đường tăng trưởng.</p>` : '<p class="sub" style="margin-top:8px">Tập tiêu chí chung có thể khác nhau giữa các năm, nên so sánh giữa năm chỉ mang tính tham khảo.</p>'}</div>
+      ${ys.length < 2 ? `<p class="sub" style="margin-top:8px">Mới có dữ liệu ${ys.length} năm nên chưa vẽ được xu hướng. Chấm thêm các năm khác để thấy đường tăng trưởng.</p>` : '<p class="sub" style="margin-top:8px">Độ phủ tiêu chí khác nhau giữa các ngân hàng và các năm, nên mức tăng/giảm giữa các năm có thể do độ phủ thay đổi chứ chưa chắc do năng lực; chỉ mang tính tham khảo.</p>'}</div>
     <div class="card reveal" style="--i:8"><div class="chd"><div><h2>Ma trận trụ cột năng lực</h2><p class="sub">Điểm trung bình theo trụ cột (thang 100)</p></div></div>
       <div class="scroll-x"><table class="heat"><thead><tr><th>Ngân hàng</th>${axes.map(p => `<th style="color:${pcol(p.id)}" data-tip="${esc(p.name)}">${esc(short(p.name, 12))}</th>`).join('')}</tr></thead><tbody>
       ${rk.map(b => `<tr><td>${esc(b.code)}</td>${axes.map(p => { const s = b.pil[p.id]; return num(s.score) ? `<td style="${heatStyle(s.score)}" data-tip="${esc(p.name)} • ${s.n} tiêu chí">${f1(s.score)}</td>` : '<td class="e">—</td>'; }).join('')}</tr>`).join('')}

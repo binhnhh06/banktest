@@ -8,3 +8,14 @@ __pycache__/
 venv/
 .DS_Store
 *.pdf
+
+# ban sao luu / thu muc luu tru cuc bo (khong dua len GitHub)
+_archive_backup/
+*.backup_*
+*.before_*
+
+
+*_backup*
+*_before_*
+*.bak
+*_cu.py
