@@ -336,7 +336,6 @@ Trong các phiên bản tiếp theo, dự án hướng tới:
 
 Nghiên cứu sử dụng báo cáo thường niên và tài liệu công bố của các ngân hàng trong phạm vi nghiên cứu, kết hợp với bộ tiêu chí đánh giá mức độ trưởng thành chuyển đổi số.
 
-Phương pháp có tham khảo dự án [`Levianth146/bank-dx-toolkit`](https://github.com/Levianth146/bank-dx-toolkit) (đã được cấp phép).
 
 Các trích dẫn cụ thể cần được đối chiếu với tài liệu nguồn, năm công bố và vị trí bằng chứng tương ứng.
 
