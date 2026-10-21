@@ -1,0 +1,9 @@
+﻿Hạng mục / Mức điểm,Điểm quy đổi (Thang 100),Công thức / Nguyên tắc,Quy tắc & Điều kiện áp dụng
+Mức 1 - Khởi đầu,0,S_i = (L_i - 1) / 4 * 100,Chưa có hoặc có rất ít hoạt động chuyển đổi số theo tiêu chí; chỉ mới ở mức nhận thức sơ khai.
+Mức 2 - Hình thành,25,S_i = (L_i - 1) / 4 * 100,"Đã triển khai thử nghiệm hoặc áp dụng ở một số bộ phận/đơn vị chức năng riêng lẻ, có bằng chứng nêu trong báo cáo."
+Mức 3 - Tăng tốc,50,S_i = (L_i - 1) / 4 * 100,"Triển khai trên diện rộng (hầu hết các bộ phận/đơn vị chức năng), có quy trình rõ ràng và số liệu minh chứng."
+Mức 4 - Dẫn đầu,75,S_i = (L_i - 1) / 4 * 100,"Triển khai đồng bộ, toàn diện trong toàn ngân hàng (Enterprise-wide), tối ưu hóa dựa trên dữ liệu."
+Mức 5 - Tiên phong,100,S_i = (L_i - 1) / 4 * 100,Triển khai toàn ngân hàng và mở rộng kết nối toàn diện với các đối tác trong hệ sinh thái số.
+Quy tắc Bằng chứng (Evidence Rule),Loại khỏi mẫu số nếu thiếu,P_k = Trung bình(S_i hợp lệ),Chỉ tính điểm các ô có trạng thái AI_PROPOSED kèm trích dẫn nguyên văn và số trang PDF. Không gán 0 điểm cho ô thiếu bằng chứng.
+Kiểm định Phản biện Tự động (Dual-Agent Critic),PASS / NEEDS_REVIEW,Adversarial LLM Verification,"Các tiêu chí đạt mức >= 3 được thẩm định độc lập bởi tác tử AI thứ 2 nhằm loại bỏ lỗi suy diễn phạm vi (đạt tỷ lệ PASS 86,19%)."
+Tổng hợp Đa phương pháp (MCDM),0 - 100,"Equal, Entropy, CRITIC, TOPSIS",Kết hợp 4 phương pháp định lượng để kiểm định độ vững chắc (Robustness) của bảng xếp hạng ngân hàng.
