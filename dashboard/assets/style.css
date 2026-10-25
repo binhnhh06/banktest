@@ -503,3 +503,57 @@ html[data-theme="slate"] .sel option,html[data-theme="light"] .sel option{backgr
   margin: 12px 0;
   box-shadow: 0 2px 6px rgba(234, 179, 8, 0.2);
 }
+/* ===== Phân kỳ đa ngân hàng (Multi-bank Range & Dot Plot) ===== */
+.gap-row-multi {
+  display: grid;
+  grid-template-columns: 125px 1fr 78px;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 12px;
+  font-weight: 600;
+}
+.gap-row-multi:last-of-type {
+  border-bottom: 0;
+}
+.gap-track-multi {
+  position: relative;
+  height: 8px;
+  border-radius: 99px;
+  background: var(--track);
+}
+.gap-range-bar {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.25), rgba(255, 123, 43, 0.35));
+}
+.gap-ind-line {
+  position: absolute;
+  top: -7px;
+  bottom: -7px;
+  width: 2.5px;
+  background: #e2e8f0;
+  border-radius: 2px;
+  z-index: 2;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+}
+.gap-bank-dot {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--bg);
+  z-index: 3;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s;
+}
+.gap-bank-dot:hover {
+  transform: translate(-50%, -50%) scale(1.45);
+  z-index: 6;
+  box-shadow: 0 0 10px currentColor;
+}

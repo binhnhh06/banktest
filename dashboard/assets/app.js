@@ -368,21 +368,44 @@ function pOverview() {
     if (state.rk === 'delta') return (num(b.delta) ? b.delta : -1e9) - (num(a.delta) ? a.delta : -1e9);
     return b.val - a.val;
   });
-  const foc = focusBank(v), second = rk.find(b => b.code !== foc);
   const ind = industryPillar(v);
   const ys = yearsSeries();
   const series = BANKS.map(b => ({ code: b.code, name: b.name, color: bcol(b.code), vals: ys.map(r => r.banks[b.code].has ? r.banks[b.code].val : null) })).filter(s => s.vals.some(num));
   const axes = PILLARS.filter(p => state.pillars.has(p.id));
-  const rv1 = v.banks[foc], rv2 = second;
-  const rs = [{ name: bank(foc).name, color: bcol(foc), vals: axes.map(p => rv1.pil[p.id].score) }];
-  if (rv2) rs.push({ name: bank(rv2.code).name, color: bcol(rv2.code), vals: axes.map(p => rv2.pil[p.id].score) });
-  if (state.compare) rs.push({ name: 'TB ngành', color: '#94a3b8', dash: true, vals: axes.map(p => ind[p.id]) });
+  
+  // Hiển thị đầy đủ tất cả các ngân hàng trên Radar và Biểu đồ phân kỳ đa ngân hàng
+  const rs = rk.map(b => ({
+    name: bank(b.code).name,
+    color: bcol(b.code),
+    vals: axes.map(p => b.pil[p.id].score)
+  }));
+  if (state.compare) {
+    rs.push({ name: 'TB ngành', color: '#e2e8f0', dash: true, vals: axes.map(p => ind[p.id]) });
+  }
   const strong = axes.map(p => ({ p, v: ind[p.id] })).filter(x => num(x.v)).sort((a, b) => b.v - a.v);
-  const gapRows = axes.map(p => ({ p, a: rv1.pil[p.id].score, i: ind[p.id] })).filter(x => num(x.a));
+  
+  const gapRows = axes.map(p => {
+    const bankPts = rk.map(b => ({
+      code: b.code,
+      name: bank(b.code).name,
+      color: bcol(b.code),
+      val: b.pil[p.id].score
+    })).filter(x => num(x.val)).sort((a, b) => a.val - b.val);
+    const vals = bankPts.map(x => x.val);
+    return {
+      p,
+      i: ind[p.id],
+      pts: bankPts,
+      lo: vals.length ? Math.min(...vals) : 0,
+      hi: vals.length ? Math.max(...vals) : 0,
+      top: bankPts.length ? bankPts[bankPts.length - 1] : null
+    };
+  }).filter(x => x.pts.length > 0);
+
   return `<div class="stack">
   <div class="card hero reveal" style="--i:0"><div style="display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:center;position:relative">
-    <div style="max-width:760px"><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">${tag('NIÊN GIÁM 2021–2025', 'am')}${tag('Truy xuất bằng chứng thực nghiệm (RAG)', 'em', 'check')}${tag('Đánh giá kép Dual-Agent & MCDM', 'cy')}</div>
-      <p class="mut" style="margin:0;max-width:820px;font-size:13px">Thang trưởng thành 5 mức (Rubric Levels 1–5) được chuẩn hóa tuyến tính sang thang 0–100 (S<sub>i</sub> = (L<sub>i</sub> − 1) / 4 × 100). Chỉ số <b style="color:var(--tx)">DBI tổng hợp được xác lập theo chuẩn OECD Composite Indicator</b> và kiểm định độ vững chắc đa tiêu chí (Shannon Entropy, CRITIC, TOPSIS).</p></div>
+    <div style="max-width:760px"><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">${tag('NIÊN GIÁM ' + esc(v.label), 'am')}${tag(ic('ok') + ' Bằng chứng truy xuất từ báo cáo', 'em')}${tag('Điểm AI đề xuất', 'cy')}</div>
+      <p class="mut" style="margin:0">Mức AI 1–5 quy đổi sang thang 0–100 (1→0, 2→25, 3→50, 4→75, 5→100). Điểm trụ cột là trung bình các tiêu chí đã chấm; <b style="color:var(--tx)">điểm DBI sơ bộ là trung bình các trụ cột</b>, chưa phải kết quả chính thức.</p></div>
     <div style="text-align:right"><div class="kicker">Kỳ đánh giá</div><div class="mid" style="font-size:20px">${esc(v.label)}</div></div></div></div>
   <div class="grid g4">
     <div class="card kpi hv reveal" style="--i:1"><div class="hd"><div><div class="kicker">Điểm DBI trung bình ngành</div><div class="big" style="margin-top:8px">${count(avg, 1)}<small>/100</small></div></div>${ring(avg)}</div>
@@ -392,8 +415,8 @@ function pOverview() {
       <div class="ft"><span>${S ? 'Hơn #2 ' + esc(bank(S.code).name) + ' <b>' + f1(L.val - S.val) + '</b> điểm' : 'Chưa có ngân hàng thứ hai'}</span></div></div>
     <div class="card kpi hv reveal" style="--i:3"><div class="hd"><div><div class="kicker">Độ phủ dữ liệu</div><div class="big" style="margin-top:8px;color:var(--cy)">${count(cov, 1)}%</div></div><div class="kpi-ic cy">${ic('db')}</div></div>
       <div class="ft"><span><b style="color:var(--tx)">${f0(cs.AI_PROPOSED)}</b>/${f0(cs.total)} ô đã có điểm</span></div></div>
-    <div class="card kpi hv reveal" style="--i:4"><div class="hd"><div><div class="kicker">Kiểm định độ vững chắc</div><div class="big" style="margin-top:8px">${count(rk.length)}<small>/ ${BANKS.length} NH</small></div></div><div class="kpi-ic vi">${ic('check')}</div></div>
-      <div class="ft"><span>${tag('Đủ 6/6 trụ cột', 'em')}</span><span>Spearman ρ = 0,989</span></div></div>
+    <div class="card kpi hv reveal" style="--i:4"><div class="hd"><div><div class="kicker">Ngân hàng đã xếp hạng</div><div class="big" style="margin-top:8px">${count(rk.length)}<small>/ ${BANKS.length}</small></div></div><div class="kpi-ic vi">${ic('check')}</div></div>
+      <div class="ft"><span>${v.reliable ? tag('Độ phủ ổn', 'em') : tag('Độ phủ chưa đều', 'wn')}</span><span>${cs.hv ? f0(cs.hv) + ' ô đã kiểm tay' : 'Chưa kiểm tay'}</span></div></div>
   </div>
   <div class="reveal" style="--i:5">${reliabilityNote(v)}</div>
   <div class="card reveal" style="--i:6"><div class="chd"><div style="display:flex;align-items:center;gap:10px"><i class="ping am"></i><div><h2>Bảng xếp hạng DBI ${esc(v.label)}</h2><p class="sub">${BANKS.length} ngân hàng • điểm sơ bộ = trung bình các trụ cột</p></div></div>
@@ -420,9 +443,45 @@ function pOverview() {
       <div class="legend" style="margin-top:12px"><span><i style="background:rgba(100,116,139,.6)"></i>&lt;40</span><span><i style="background:var(--cy)"></i>40–55</span><span><i style="background:var(--em)"></i>55–70</span><span><i style="background:var(--amber2)"></i>70–85</span><span><i style="background:var(--amber)"></i>≥85</span></div></div>
   </div>
   <div class="grid g2">
-    <div class="card reveal" style="--i:9"><div class="chd"><div><h2>Phân kỳ ${esc(bank(foc).name)} so với chuẩn ngành</h2><p class="sub">Chấm tròn xám = trung bình ngành • chấm sáng = ${esc(bank(foc).name)}</p></div></div>
-      ${gapRows.map(r => `<div class="gap-row"><span data-tip="${esc(r.p.name)}">${esc(short(r.p.name, 22))}</span><div class="gap-track"><div class="gap-fill" data-w="${clamp(r.a, 0, 100)}"></div><div class="gap-dot" data-l="${clamp(r.i || 0, 0, 100)}"></div><div class="gap-dot lead" data-l="${clamp(r.a, 0, 100)}"></div></div><b class="${(r.a - r.i) >= 0 ? 'up' : 'dn'}" style="text-align:right">${sgn(r.a - (num(r.i) ? r.i : r.a))} đ</b></div>`).join('') || '<div class="empty">Chưa đủ dữ liệu</div>'}</div>
-    <div class="card reveal" style="--i:10"><div class="chd"><div><h2>Đối đầu chiến lược</h2><p class="sub">So sánh cân bằng ${axes.length} trụ cột</p></div><div class="legend">${rs.map(s => `<span><i style="background:${s.color}"></i>${esc(s.name)}</span>`).join('')}</div></div>${radar(axes, rs)}</div>
+    <div class="card reveal" style="--i:9">
+      <div class="chd">
+        <div>
+          <h2>Phân kỳ 5 ngân hàng so với chuẩn ngành</h2>
+          <p class="sub">Vạch trắng = TB ngành • Chấm màu = vị trí từng ngân hàng (di chuột để xem điểm)</p>
+        </div>
+        <div class="legend">
+          ${rk.map(b => `<span><i style="background:${bcol(b.code)}"></i>${esc(b.code)}</span>`).join('')}
+          <span><i style="background:#e2e8f0;width:3px;height:12px;border-radius:1px"></i>TB ngành</span>
+        </div>
+      </div>
+      ${gapRows.map(r => `
+        <div class="gap-row-multi">
+          <span data-tip="${esc(r.p.name)}">${esc(short(r.p.name, 20))}</span>
+          <div class="gap-track-multi">
+            <div class="gap-range-bar" style="left:${clamp(r.lo, 0, 100)}%;width:${clamp(r.hi - r.lo, 0, 100)}%"></div>
+            <div class="gap-ind-line" style="left:${clamp(r.i || 0, 0, 100)}%" data-tip="<b>TB ngành (${esc(r.p.name)})</b>: ${f1(r.i)} điểm"></div>
+            ${r.pts.map(pt => `
+              <div class="gap-bank-dot" style="left:${clamp(pt.val, 0, 100)}%;background:${pt.color};color:${pt.color}"
+                   data-tip="<b>${esc(pt.name)} (${esc(pt.code)})</b> • ${esc(r.p.name)}<br>Điểm: <b>${f1(pt.val)}</b> (${sgn(pt.val - r.i)} so với TB ngành)"></div>
+            `).join('')}
+          </div>
+          <div style="text-align:right;font-size:11px;line-height:1.25" data-tip="Ngân hàng dẫn đầu trụ cột ${esc(r.p.name)}: ${r.top ? esc(r.top.name) + ' (' + f1(r.top.val) + 'đ)' : '—'}">
+            <b style="color:${r.top ? r.top.color : 'var(--tx)'}">${r.top ? esc(r.top.code) : '—'}</b>
+            <span class="up" style="display:block;font-size:10.5px">${r.top ? sgn(r.top.val - r.i) + ' đ' : ''}</span>
+          </div>
+        </div>
+      `).join('') || '<div class="empty">Chưa đủ dữ liệu</div>'}
+    </div>
+    <div class="card reveal" style="--i:10">
+      <div class="chd">
+        <div>
+          <h2>Đối đầu chiến lược toàn ngành</h2>
+          <p class="sub">So sánh tổng thể ${rk.length} ngân hàng và TB ngành trên ${axes.length} trụ cột</p>
+        </div>
+        <div class="legend">${rs.map(s => `<span><i style="background:${s.color}"></i>${esc(s.name)}</span>`).join('')}</div>
+      </div>
+      ${radar(axes, rs)}
+    </div>
   </div>
   <div class="sec-t reveal" style="--i:11"><i></i>Nhận định tự động từ dữ liệu</div>
   <div class="grid g3">
