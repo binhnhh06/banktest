@@ -78,6 +78,44 @@ const pidx = id => Math.max(0, PILLARS.findIndex(p => p.id === id));
 const pcol = id => PCOL[pidx(id) % PCOL.length];
 const pname = id => (PILLARS[pidx(id)] || {}).name || id;
 const bank = code => BANKS.find(b => b.code === code) || { code, name: code, full: code };
+const BANK_META = {
+  TCB: {
+    founded: 1993,
+    type: 'TMCP Tư nhân',
+    hq: 'Số 6 Quang Trung, Quận Hoàn Kiếm, Hà Nội',
+    web: 'https://techcombank.com',
+    app_name: 'Techcombank Mobile'
+  },
+  VPB: {
+    founded: 1993,
+    type: 'TMCP Tư nhân',
+    hq: 'Số 89 Láng Hạ, Quận Đống Đa, Hà Nội',
+    web: 'https://www.vpbank.com.vn',
+    app_name: 'VPBank NEO'
+  },
+  BID: {
+    founded: 1957,
+    type: 'TMCP Nhà nước chi phối',
+    hq: 'Tháp BIDV, 194 Trần Quang Khải, Hoàn Kiếm, Hà Nội',
+    web: 'https://bidv.com.vn',
+    app_name: 'BIDV SmartBanking'
+  },
+  TPB: {
+    founded: 2008,
+    type: 'TMCP Tư nhân',
+    hq: 'Tòa nhà TPBank, 57 Lý Thường Kiệt, Hoàn Kiếm, Hà Nội',
+    web: 'https://tpb.vn',
+    app_name: 'TPBank Mobile / LiveBank 24/7'
+  },
+  HDB: {
+    founded: 1990,
+    type: 'TMCP Tư nhân',
+    hq: '25Bis Nguyễn Thị Minh Khai, Quận 1, TP. Hồ Chí Minh',
+    web: 'https://hdbank.com.vn',
+    app_name: 'HDBank App'
+  }
+};
+const bmeta = code => Object.assign({}, BANK_META[code] || {}, bank(code));
 const LV = ['Khởi đầu', 'Hình thành', 'Tăng tốc', 'Dẫn đầu', 'Tiên phong'];
 const LV_TAG = ['', 'in', 'cy', 'em', 'am'];
 const levelOf = p => clamp(Math.round(1 + p / 25), 1, 5);
@@ -526,8 +564,61 @@ function pProfile() {
   <div class="grid g21">
     <div class="card hero profile-hero reveal" style="--i:1">${bankImage(code, 'background', 'bank-cover', bk.name + ' banner')}<div class="profile-hero-shade"></div><div style="position:relative;z-index:1">
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">${tag(`Hạng #${b.rank} / ${rk.length}`, 'am')}${tag(ic('ok') + ' ' + (y ? 'Báo cáo năm ' + y : ''), 'em')}${v.reliable ? '' : tag('Độ phủ chưa đều', 'wn')}</div>
-      <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px"><div class="av profile-logo" style="color:${bcol(code)};border-color:${bcol(code)}66;background:${bcol(code)}18">${bankImage(code, 'logo', 'profile-logo-img', bk.name + ' logo')}<span>${esc(code)}</span></div>
-        <div><h2 style="font-size:26px">${esc(bk.name)}</h2><p class="sub">${esc(bk.full)}</p></div></div>
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px">
+        <div class="av profile-logo" style="color:${bcol(code)};border-color:${bcol(code)}66;background:${bcol(code)}18">
+          ${bankImage(code, 'logo', 'profile-logo-img', bk.name + ' logo')}<span>${esc(code)}</span>
+        </div>
+        <div>
+          <h2 style="font-size:26px">${esc(bk.name)}</h2>
+          <p class="sub">${esc(bk.full)}</p>
+        </div>
+      </div>
+      ${(() => {
+            const bm = bmeta(code);
+            const fy = bm.founded_year || bm.founded || '';
+            // Hỗ trợ bắt đa dạng các tên trường: headquarters, hq, address
+            const hq = bm.headquarters || bm.hq || bm.address || 'Đang cập nhật';
+            const web = bm.website || bm.web || '';
+            const cleanWeb = web.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+            const age = fy ? ` (${new Date().getFullYear() - (+fy || 2000)} năm hoạt động)` : '';
+            return `<div class="bank-info-bar">
+              <div class="bank-info-item">
+                <div class="bank-info-icon">🏛️</div>
+                <div class="bank-info-content">
+                  <span class="label">Năm thành lập</span>
+                  <span class="val">${esc(fy)}${esc(age)}</span>
+                </div>
+              </div>
+              <div class="bank-info-item">
+                <div class="bank-info-icon">💼</div>
+                <div class="bank-info-content">
+                  <span class="label">Loại hình tổ chức</span>
+                  <span class="val">${esc(bm.type || 'Ngân hàng TMCP')}</span>
+                </div>
+              </div>
+              <div class="bank-info-item">
+                <div class="bank-info-icon">📱</div>
+                <div class="bank-info-content">
+                  <span class="label">Hệ sinh thái số</span>
+                  <span class="val">${esc(bm.app_name || 'Ứng dụng Ngân hàng số')}</span>
+                </div>
+              </div>
+              <div class="bank-info-item" style="grid-column: span 2;">
+                <div class="bank-info-icon">📍</div>
+                <div class="bank-info-content">
+                  <span class="label">Trụ sở chính</span>
+                  <span class="val" title="${esc(hq)}" style="font-size: 11.5px; line-height: 1.3;">${esc(hq)}</span>
+                </div>
+              </div>
+              ${web ? `<div class="bank-info-item">
+                <div class="bank-info-icon">🌐</div>
+                <div class="bank-info-content">
+                  <span class="label">Cổng thông tin điện tử</span>
+                  <a class="val" href="${esc(web)}" target="_blank" rel="noopener">${esc(cleanWeb)} ↗</a>
+                </div>
+              </div>` : ''}
+            </div>`;
+          })()}
       <div class="grid g3" style="gap:12px">
         <div class="mini-stat"><small>Điểm DBI</small><b style="color:var(--amber2)">${count(b.val, 1)}</b><small class="${num(b.delta) ? (b.delta >= 0 ? 'up' : 'dn') : ''}">${num(b.delta) ? sgn(b.delta) + (v.mode === 'year' ? ' so năm trước' : ' trong kỳ') : 'Chưa có kỳ so sánh'}</small></div>
         <div class="mini-stat"><small>Độ phủ tiêu chí</small><b style="color:var(--cy)">${count(b.coverage, 1)}%</b><small>${b.n}/${b.total} tiêu chí có điểm</small></div>
